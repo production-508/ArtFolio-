@@ -4,7 +4,6 @@
   "description": "ArtFolio - Galerie d'art avec IA",
   "scripts": {
     "start": "cd backend && node server.js",
-    "build": "cd frontend && npm install && npm run build",
     "postinstall": "cd backend && npm install"
   },
   "engines": {
