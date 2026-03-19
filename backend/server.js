@@ -1,11 +1,15 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { initDb } = require('./db/init');
 const helmet = require('helmet');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Healthcheck immédiat (avant tout le reste)
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
+});
 
 // Désactiver les ETags pour éviter les 304 côté client
 app.disable('etag');
@@ -47,10 +51,9 @@ app.use('/api/img',      require('./routes/img'));        // proxy images
 app.use('/api/admin',    require('./routes/admin'));
 app.use('/api/chat',     require('./routes/chat'));      // Chatbot expert d'art
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
-});
+// Initialiser la BDD (async, ne bloque pas le démarrage)
+const { initDb } = require('./db/init');
+initDb().then(() => console.log('✅ Base de données initialisée')).catch(console.error);
 
 // 404 handler
 app.use((req, res) => {
