@@ -82,4 +82,15 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`   • GET  /api/stats`);
   console.log(`   • POST /api/ai/generate-profile`);
   console.log(`   • POST /api/chat/art-advisor`);
+  console.log(`✅ Serveur prêt sur le port ${PORT}`);
+});
+
+// Gestion des erreurs non catchées
+process.on('uncaughtException', (err) => {
+  console.error('❌ Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
 });
