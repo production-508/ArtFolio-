@@ -1,0 +1,176 @@
+/* ============================================================
+   AdminDashboard Page
+   ============================================================ */
+.admin-dashboard {
+  padding-top: 64px;
+  min-height: 100vh;
+  background: var(--night);
+}
+
+.admin-dashboard.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--white-60);
+  gap: 16px;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(201,169,110,0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Header Admin */
+.admin-header {
+  background: #05050a;
+  border-bottom: 1px solid var(--night-border);
+  padding: 40px 0;
+  margin-bottom: 32px;
+}
+.display-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.subtitle {
+  font-size: 15px; color: var(--white-60);
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex; gap: 8px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--night-border);
+}
+.admin-tab {
+  background: none; border: none;
+  padding: 12px 24px;
+  font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--white-60);
+  cursor: pointer; transition: var(--transition-fast);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.admin-tab:hover { color: var(--cream); }
+.admin-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* Section Content */
+.admin-content { margin-bottom: 80px; }
+.admin-section-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem; color: var(--cream);
+  margin-bottom: 24px;
+}
+
+/* Overview KPIs */
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.admin-kpi-card {
+  background: var(--night-card);
+  border: 1px solid var(--night-border);
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  text-align: center;
+}
+.admin-kpi-card.highlight {
+  border-color: rgba(201,169,110,0.3);
+  background: linear-gradient(135deg, rgba(201,169,110,0.05), var(--night-card));
+}
+.admin-kpi-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+.admin-kpi-val { font-family: var(--font-display); font-size: 2.4rem; color: var(--cream); display: block; line-height: 1; margin-bottom: 6px; }
+.admin-kpi-card.highlight .admin-kpi-val { color: var(--gold); }
+.admin-kpi-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--white-60); }
+
+/* Tables */
+.admin-table-wrap {
+  background: var(--night-card);
+  border: 1px solid var(--night-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+.admin-table {
+  width: 100%; border-collapse: collapse; text-align: left;
+}
+.admin-table th {
+  padding: 16px 20px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--white-60);
+  border-bottom: 1px solid var(--night-border);
+  background: rgba(255,255,255,0.01);
+}
+.admin-table td {
+  padding: 16px 20px;
+  font-size: 14px; color: var(--cream);
+  border-bottom: 1px solid var(--night-border);
+}
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td { background: var(--night-soft); }
+
+.admin-td-id { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--white-60); }
+.admin-td-email { color: var(--white-60); }
+.admin-table a { color: var(--gold); text-decoration: none; }
+.admin-table a:hover { text-decoration: underline; }
+
+/* Badges & Roles */
+.admin-badge {
+  display: inline-block;
+  padding: 4px 10px; border-radius: 4px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+}
+.role-admin { background: rgba(201,169,110,0.15); color: var(--gold); }
+.role-artist { background: rgba(56,189,248,0.15); color: #38bdf8; }
+.role-user { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+
+/* Actions */
+.admin-td-actions { display: flex; gap: 8px; align-items: center; }
+.admin-role-select {
+  background: var(--night); color: var(--cream); border: 1px solid var(--night-border);
+  padding: 6px 10px; border-radius: 4px; font-size: 12px; cursor: pointer;
+}
+.admin-self { font-size: 12px; color: var(--white-60); font-style: italic; }
+.btn-admin-danger {
+  background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+  color: #f87171; padding: 6px 12px; border-radius: 4px; font-size: 12px;
+  cursor: pointer; transition: var(--transition-fast);
+}
+.btn-admin-danger:hover { background: rgba(239,68,68,0.2); border-color: #ef4444; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .admin-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .admin-kpi-grid { grid-template-columns: 1fr; }
+  .admin-tabs { flex-direction: column; }
+  .admin-tab { border-bottom: none; border-left: 2px solid transparent; text-align: left; }
+  .admin-tab.active { border-left-color: var(--gold); }
+}
+
+/* Custom Admin Modal */
+.admin-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  z-index: 9999; display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+.admin-modal {
+  background: var(--night-card); border: 1px solid var(--night-border); border-radius: var(--radius-lg, 8px);
+  padding: 32px; width: 400px; max-width: 90%; text-align: center;
+}
+.admin-modal h3 { color: var(--cream); margin-bottom: 12px; }
+.admin-modal p { color: var(--white-60); margin-bottom: 24px; font-size: 14px; }
+.admin-modal-actions { display: flex; gap: 12px; justify-content: center; }
+.btn-admin-cancel { background: transparent; color: var(--white-60); border: 1px solid var(--night-border); padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+.btn-admin-cancel:hover { background: rgba(255,255,255,0.05); color: var(--cream); }

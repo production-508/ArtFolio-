@@ -1,0 +1,66 @@
+/* ============================================================
+   ArtFolio — Design System Core Variables
+   Typography & Color Tokens
+   ============================================================ */
+
+:root {
+  /* ── Core Colors ── */
+  --night:       #0a0a0b;
+  --night-soft:  #111113;
+  --night-card:  #16161a;
+  --night-border:#2a2a30;
+  --cream:       #f5f0e8;
+  --cream-soft:  #ede7da;
+  --gold:        #c9a96e;
+  --gold-light:  #dfc090;
+  --gold-dark:   #a07840;
+  
+  /* ── Monochromes ── */
+  --white:       #ffffff;
+  --white-60:    rgba(255,255,255,0.6);
+  --white-20:    rgba(255,255,255,0.2);
+  --white-10:    rgba(255,255,255,0.1);
+
+  /* ── Typography ── */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* ── Borders & Radii ── */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  32px;
+
+  /* ── Animation & Transitions ── */
+  --transition: 0.3s ease;
+  --transition-fast: 0.15s ease;
+  
+  /* ── Dynamic AI Theme Tokens (Defaults) ── */
+  --p-bg: var(--night);
+  --p-bg2: var(--night-soft);
+  --p-surface: var(--night-card);
+  --p-text: var(--cream);
+  --p-accent: var(--gold);
+  --p-accent2: var(--gold-dark);
+  --p-muted: var(--white-60);
+  --p-border: var(--night-border);
+  --p-font-h: var(--font-display);
+  --p-font-b: var(--font-body);
+}
+
+/* ── Global Dynamic Profile Overrides ── */
+[class^="preset-"] {
+  background: var(--p-bg);
+  color: var(--p-text);
+}
+[class^="preset-"] .p-hero-name, 
+[class^="preset-"] .p-section-title, 
+[class^="preset-"] .p-artwork-title {
+  font-family: var(--p-font-h);
+  font-weight: var(--p-font-weight-h, 400);
+  font-style: var(--p-font-style-h, normal);
+}
+[class^="preset-"] .p-hero-bio,
+[class^="preset-"] .p-artwork-meta {
+  font-family: var(--p-font-b);
+}
