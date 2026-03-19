@@ -1,23 +1,40 @@
 {
-  "name": "artfolio-frontend",
+  "name": "artfolio",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port $PORT --host 0.0.0.0"
+    "preview": "vite preview --port $PORT --host 0.0.0.0",
+    "start": "cd backend && node server.js"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
     "axios": "^1.6.7",
-    "lucide-react": "^0.344.0"
+    "lucide-react": "^0.344.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "express-rate-limit": "^8.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.2",
+    "openai": "^4.28.4",
+    "sharp": "^0.34.5",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "vite": "^5.1.0"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
