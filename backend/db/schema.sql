@@ -10,13 +10,21 @@ CREATE TABLE IF NOT EXISTS users (
   location TEXT,
   website TEXT,
   instagram TEXT,
-  -- Champs générés par l'IA
+  -- Champs génénérés par l'IA
   ai_bio TEXT,
   ai_statement TEXT,
   ai_style_tags TEXT, -- JSON array stocké en texte: ["Abstrait","Minimaliste","Contemporain"]
   ai_tokens_used INTEGER DEFAULT 0,
   ai_generated_at TEXT,
   saved_themes TEXT, -- JSON array de thèmes sauvegardés
+  -- Champs Stripe
+  stripe_customer_id TEXT,
+  stripe_subscription_id TEXT,
+  subscription_status TEXT DEFAULT 'none' CHECK(subscription_status IN ('none', 'incomplete', 'active', 'past_due', 'canceled')),
+  subscription_price_id TEXT,
+  subscription_current_period_start TEXT,
+  subscription_current_period_end TEXT,
+  stripe_account_id TEXT, -- Pour les vendeurs (Connect)
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now'))
 );
@@ -96,3 +104,22 @@ CREATE TABLE IF NOT EXISTS password_resets (
   created_at TEXT DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_password_resets_token ON password_resets(token);
+
+-- Table pour les transactions (achats/ventes)
+CREATE TABLE IF NOT EXISTS transactions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  artwork_id INTEGER NOT NULL REFERENCES artworks(id) ON DELETE CASCADE,
+  buyer_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  seller_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  amount REAL NOT NULL, -- Montant total en EUR
+  commission REAL NOT NULL, -- Commission ArtFolio (7%)
+  stripe_payment_intent_id TEXT UNIQUE,
+  status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'completed', 'failed', 'refunded')),
+  created_at TEXT DEFAULT (datetime('now')),
+  completed_at TEXT,
+  refunded_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_transactions_buyer ON transactions(buyer_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_seller ON transactions(seller_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_artwork ON transactions(artwork_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_status ON transactions(status);

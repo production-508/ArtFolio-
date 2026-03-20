@@ -52,6 +52,7 @@ app.use('/api/ai',       require('./routes/ai'));
 app.use('/api/img',      require('./routes/img'));        // proxy images
 app.use('/api/admin',    require('./routes/admin'));
 app.use('/api/chat',     require('./routes/chat'));      // Chatbot expert d'art
+app.use('/api/stripe',   require('./routes/stripe'));    // Paiements Stripe
 
 // Servir le frontend (fichiers statiques du build)
 // Le frontend buildé doit être dans ../dist (à la racine du projet)

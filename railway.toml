@@ -4,10 +4,13 @@ builder = "nixpacks"
 [phases.build]
 cmds = [
   "npm install",
-  "npm run build"
+  "npm run build",
+  "cd backend && npm install"
 ]
 
 [deploy]
-startCommand = "cd backend && node server.js"
+startCommand = "cd backend && npm start"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 120
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
