@@ -1,73 +1,41 @@
-// DEBUG: Log de démarrage immédiat
-console.log('🚀 server.js chargé');
-console.log('📁 Répertoire courant:', __dirname);
-console.log('📁 Répertoire parent:', require('path').join(__dirname, '..'));
+// Serveur Express minimal pour Railway - Version debug
+console.log('🚀 DémARRAGE server.js');
 
 try {
-  console.log('⏳ Chargement des dépendances...');
   require('dotenv').config();
-  console.log('✅ dotenv chargé');
-  
   const express = require('express');
-  console.log('✅ express chargé');
-  
-  const cors = require('cors');
-  console.log('✅ cors chargé');
-  
-  const helmet = require('helmet');
-  console.log('✅ helmet chargé');
-  
   const path = require('path');
-  console.log('✅ path chargé');
 
   const app = express();
   const PORT = process.env.PORT || 3001;
-  console.log('📡 Port configuré:', PORT);
-  console.log('🔍 ENV PORT:', process.env.PORT);
-  console.log('🌐 Railway environnement:', process.env.RAILWAY_ENVIRONMENT || 'non-Railway');
+
+  console.log('📡 PORT=', PORT);
+  console.log('🌐 RAILWAY_ENVIRONMENT=', process.env.RAILWAY_ENVIRONMENT || 'undefined');
 
   // ============================================
-  // 1. HEALTHCHECK IMMÉDIAT (plusieurs routes pour compatibilité)
+  // HEALTHCHECK - ABSOLUMENT EN PREMIER
   // ============================================
-  app.get('/api/health', (req, res) => {
-    console.log('💓 Healthcheck /api/health appelé');
-    res.status(200).json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
-  });
-
+  
+  // Healthcheck Railway (doit répondre immédiatement)
   app.get('/health', (req, res) => {
-    console.log('💓 Healthcheck /health appelé');
-    res.status(200).json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
+    console.log('💓 /health appelé');
+    res.status(200).send('OK');
   });
 
-  // Healthcheck ultra-simple pour Railway (répond immédiatement)
-  app.get('/', (req, res) => {
-    if (req.query.health === '1' || req.path === '/') {
-      console.log('💓 Root healthcheck appelé');
-      return res.status(200).send('OK');
-    }
-    res.redirect('/api/health');
+  app.get('/api/health', (req, res) => {
+    console.log('💓 /api/health appelé');
+    res.status(200).json({ status: 'ok', time: Date.now() });
   });
 
   // ============================================
-  // 2. CONFIGURATION
+  // MIDDLEWARES
   // ============================================
-  app.disable('etag');
-  app.set('etag', false);
-
-  app.use(helmet());
-  app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
-  const corsOrigins = process.env.CORS_ORIGIN 
-    ? [process.env.CORS_ORIGIN, 'http://localhost:8080', 'http://localhost:5173']
-    : ['http://localhost:8080', 'http://localhost:5173', 'http://localhost:3000'];
-
-  app.use(cors({ origin: corsOrigins, credentials: true }));
+  app.use(require('helmet')());
+  app.use(require('cors')({ origin: '*', credentials: true }));
   app.use(express.json());
 
-  console.log('✅ Middlewares configurés');
-
   // ============================================
-  // 3. ROUTES API (avec try-catch pour chaque require)
+  // ROUTES API (avec try-catch)
   // ============================================
   const routes = [
     ['/api/auth', './routes/auth'],
@@ -83,88 +51,71 @@ try {
     ['/api/stripe', './routes/stripe'],
   ];
 
-  for (const [path, modulePath] of routes) {
+  for (const [routePath, modulePath] of routes) {
     try {
-      app.use(path, require(modulePath));
-      console.log(`✅ Route ${path} chargée`);
+      app.use(routePath, require(modulePath));
+      console.log(`✅ ${routePath}`);
     } catch (err) {
-      console.warn(`⚠️ Route ${path} non chargée:`, err.message);
-      // Route de fallback
-      app.use(path, (req, res) => res.status(503).json({ error: 'Service temporairement indisponible' }));
+      console.warn(`⚠️ ${routePath} failed:`, err.message.split('\n')[0]);
+      app.use(routePath, (req, res) => res.status(503).json({ error: 'Unavailable' }));
     }
   }
 
   // ============================================
-  // 4. FRONTEND
+  // FRONTEND (dossier dist)
   // ============================================
-  const frontendDistPath = path.join(__dirname, '..', 'dist');
-  console.log('📂 Chemin frontend:', frontendDistPath);
+  const distPath = path.join(__dirname, '..', 'dist');
+  const fs = require('fs');
   
-  if (require('fs').existsSync(frontendDistPath)) {
-    app.use(express.static(frontendDistPath));
-    console.log('✅ Frontend statique servi');
-  } else {
-    console.warn('⚠️ Dossier dist non trouvé');
-  }
-
-  app.get('*', (req, res) => {
-    if (req.path.startsWith('/api')) {
-      return res.status(404).json({ error: `Route API introuvable : ${req.method} ${req.path}` });
-    }
-    const indexPath = path.join(frontendDistPath, 'index.html');
-    if (require('fs').existsSync(indexPath)) {
-      res.sendFile(indexPath);
-    } else {
-      res.status(503).send('Frontend en cours de déploiement...');
-    }
-  });
-
-  // ============================================
-  // 5. ERROR HANDLER
-  // ============================================
-  app.use((err, req, res, next) => {
-    console.error('❌ Erreur serveur:', err);
-    res.status(500).json({ 
-      error: process.env.NODE_ENV === 'production' ? 'Erreur interne' : err.message 
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath));
+    console.log('📂 Frontend static:', distPath);
+    
+    // SPA fallback (toutes les routes non-API)
+    app.get('*', (req, res) => {
+      if (req.path.startsWith('/api')) {
+        return res.status(404).json({ error: 'Not found' });
+      }
+      const indexPath = path.join(distPath, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+      } else {
+        res.status(200).send('ArtFolio API Server - Frontend building...');
+      }
     });
-  });
+  } else {
+    console.warn('⚠️ dist/ not found');
+    app.get('*', (req, res) => {
+      if (req.path.startsWith('/api')) {
+        return res.status(404).json({ error: 'Not found' });
+      }
+      res.status(200).send('ArtFolio API Server');
+    });
+  }
 
   // ============================================
-  // 6. DÉMARRAGE
+  // DÉMARRAGE
   // ============================================
-  console.log('⏳ Démarrage du serveur sur port', PORT, '...');
-  
   const server = app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🎨 ArtFolio démarré sur http://0.0.0.0:${PORT}`);
-    console.log(`   • API Health: /api/health`);
-    console.log(`✅ Serveur prêt et en écoute`);
-  });
-
-  server.on('listening', () => {
-    console.log(`🔊 Server listening event fired on port ${PORT}`);
+    console.log(`✅ Server listening on port ${PORT}`);
   });
 
   server.on('error', (err) => {
-    console.error('❌ Erreur serveur:', err);
+    console.error('❌ Server error:', err);
     process.exit(1);
   });
 
-  // ============================================
-  // 7. DB INITIALIZATION (background)
-  // ============================================
+  // DB init en arrière-plan (non bloquant)
   setTimeout(() => {
     try {
       const { initDb } = require('./db/init');
-      initDb().then(() => console.log('✅ DB initialisée')).catch(err => {
-        console.warn('⚠️ DB erreur:', err.message);
-      });
-    } catch (err) {
-      console.warn('⚠️ DB non disponible:', err.message);
+      initDb().then(() => console.log('✅ DB OK')).catch(e => console.log('⚠️ DB:', e.message));
+    } catch (e) {
+      console.log('⚠️ DB init failed:', e.message);
     }
   }, 100);
 
-} catch (startupErr) {
-  console.error('💥 ERREUR CRITIQUE AU DÉMARRAGE:', startupErr);
-  console.error(startupErr.stack);
+} catch (err) {
+  console.error('💥 FATAL:', err);
   process.exit(1);
 }
