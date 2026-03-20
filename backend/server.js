@@ -23,13 +23,29 @@ try {
   const app = express();
   const PORT = process.env.PORT || 3001;
   console.log('📡 Port configuré:', PORT);
+  console.log('🔍 ENV PORT:', process.env.PORT);
+  console.log('🌐 Railway environnement:', process.env.RAILWAY_ENVIRONMENT || 'non-Railway');
 
   // ============================================
-  // 1. HEALTHCHECK IMMÉDIAT
+  // 1. HEALTHCHECK IMMÉDIAT (plusieurs routes pour compatibilité)
   // ============================================
   app.get('/api/health', (req, res) => {
-    console.log('💓 Healthcheck appelé');
-    res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
+    console.log('💓 Healthcheck /api/health appelé');
+    res.status(200).json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
+  });
+
+  app.get('/health', (req, res) => {
+    console.log('💓 Healthcheck /health appelé');
+    res.status(200).json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
+  });
+
+  // Healthcheck ultra-simple pour Railway (répond immédiatement)
+  app.get('/', (req, res) => {
+    if (req.query.health === '1' || req.path === '/') {
+      console.log('💓 Root healthcheck appelé');
+      return res.status(200).send('OK');
+    }
+    res.redirect('/api/health');
   });
 
   // ============================================
@@ -121,6 +137,11 @@ try {
   const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`🎨 ArtFolio démarré sur http://0.0.0.0:${PORT}`);
     console.log(`   • API Health: /api/health`);
+    console.log(`✅ Serveur prêt et en écoute`);
+  });
+
+  server.on('listening', () => {
+    console.log(`🔊 Server listening event fired on port ${PORT}`);
   });
 
   server.on('error', (err) => {
