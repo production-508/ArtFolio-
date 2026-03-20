@@ -5,17 +5,33 @@ try {
   require('dotenv').config();
   const express = require('express');
   const path = require('path');
+  const fs = require('fs');
 
   const app = express();
   const PORT = process.env.PORT || 3001;
 
   console.log('📡 PORT=', PORT);
   console.log('🌐 RAILWAY_ENVIRONMENT=', process.env.RAILWAY_ENVIRONMENT || 'undefined');
+  console.log('📁 __dirname=', __dirname);
+
+  // Vérifier si dist existe
+  const distPath = path.join(__dirname, '..', 'dist');
+  console.log('📂 distPath=', distPath);
+  console.log('📂 dist exists=', fs.existsSync(distPath));
+  if (fs.existsSync(distPath)) {
+    console.log('📂 dist contents=', fs.readdirSync(distPath));
+  }
 
   // ============================================
   // HEALTHCHECK - ABSOLUMENT EN PREMIER
   // ============================================
   
+  // Route racine explicite
+  app.get('/', (req, res) => {
+    console.log('💓 / appelé');
+    res.status(200).send('<h1>ArtFolio API OK</h1><p><a href="/api/health">Health</a></p>');
+  });
+
   // Healthcheck Railway (doit répondre immédiatement)
   app.get('/health', (req, res) => {
     console.log('💓 /health appelé');
@@ -62,35 +78,28 @@ try {
   }
 
   // ============================================
-  // FRONTEND (dossier dist)
+  // FRONTEND (dossier dist) - APRÈS les routes API
   // ============================================
-  const distPath = path.join(__dirname, '..', 'dist');
-  const fs = require('fs');
   
   if (fs.existsSync(distPath)) {
-    app.use(express.static(distPath));
-    console.log('📂 Frontend static:', distPath);
+    // Servir les fichiers statiques sauf index.html
+    app.use(express.static(distPath, { index: false }));
+    console.log('📂 Frontend static servi depuis:', distPath);
     
-    // SPA fallback (toutes les routes non-API)
+    // SPA fallback pour les routes non-API (sauf la racine déjà définie)
     app.get('*', (req, res) => {
-      if (req.path.startsWith('/api')) {
+      if (req.path.startsWith('/api') || req.path === '/') {
         return res.status(404).json({ error: 'Not found' });
       }
       const indexPath = path.join(distPath, 'index.html');
       if (fs.existsSync(indexPath)) {
         res.sendFile(indexPath);
       } else {
-        res.status(200).send('ArtFolio API Server - Frontend building...');
+        res.status(200).send('ArtFolio - Frontend en cours de construction');
       }
     });
   } else {
-    console.warn('⚠️ dist/ not found');
-    app.get('*', (req, res) => {
-      if (req.path.startsWith('/api')) {
-        return res.status(404).json({ error: 'Not found' });
-      }
-      res.status(200).send('ArtFolio API Server');
-    });
+    console.warn('⚠️ dist/ not found - mode API uniquement');
   }
 
   // ============================================
