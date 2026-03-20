@@ -11,10 +11,8 @@ services:
         value: sqlite:./artfolio.db
       - key: JWT_SECRET
         generateValue: true
-      - key: PORT
-        value: 10000
       # Ajouter manuellement dans le dashboard :
       # - STRIPE_SECRET_KEY
-      # - STRIPE_PUBLISHABLE_KEY
+      # - STRIPE_PUBLISHABLE_KEY  
       # - STRIPE_WEBHOOK_SECRET
       # - OPENAI_API_KEY
