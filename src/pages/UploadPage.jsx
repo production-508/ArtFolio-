@@ -293,7 +293,7 @@ function UploadProgress({ image, progress, onCancel }) {
             animate={{ width: `${progress}%` }}
             transition={{ type: 'spring', stiffness: 100 }}
           />
-          <{/* Effet shimmer */}
+          {/* Effet shimmer */}
           <motion.div
             className="absolute inset-y-0 w-20 bg-gradient-to-r from-transparent via-white/30 to-transparent"
             animate={{ x: ['-100%', '200%'] }}
