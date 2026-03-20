@@ -11,6 +11,9 @@ cmds = [
 [deploy]
 startCommand = "cd backend && npm start"
 healthcheckPath = "/api/health"
-healthcheckTimeout = 120
+healthcheckTimeout = 300
 restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
+restartPolicyMaxRetries = 5
+
+[deploy.env]
+NODE_ENV = "production"
