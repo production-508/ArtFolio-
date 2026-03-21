@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { InstitutionalNav } from './components/InstitutionalNav';
+import InstitutionalNav from './components/InstitutionalNav';
 import LandingPage from './pages/LandingPage';
 import InstitutionalHomePage from './pages/InstitutionalHomePage';
 import HomePage from './pages/HomePage';
