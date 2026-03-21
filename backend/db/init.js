@@ -58,11 +58,21 @@ async function initDb() {
   await run(db, 'PRAGMA journal_mode = WAL');
   await run(db, 'PRAGMA foreign_keys = ON');
 
-  // Appliquer le schéma
+  // Appliquer le schéma principal
   const schema = fs.readFileSync(SCHEMA_PATH, 'utf8');
   await new Promise((resolve, reject) => {
     db.exec(schema, err => err ? reject(err) : resolve());
   });
+
+  // Appliquer le schéma des artistes (profils générés)
+  const artistsSchemaPath = path.join(__dirname, 'artists_schema.sql');
+  if (fs.existsSync(artistsSchemaPath)) {
+    const artistsSchema = fs.readFileSync(artistsSchemaPath, 'utf8');
+    await new Promise((resolve, reject) => {
+      db.exec(artistsSchema, err => err ? reject(err) : resolve());
+    });
+    console.log('✅ Table artists initialisée');
+  }
 
   // Vérifier si déjà seedé
   const row = await get(db, 'SELECT COUNT(*) as count FROM users');

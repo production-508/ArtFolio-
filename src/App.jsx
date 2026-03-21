@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import AnalyzePage from './pages/AnalyzePage';
 import ArtistDashboard from './pages/ArtistDashboard';
+import ArtistProfilePage from './pages/ArtistProfilePage';
 import './index.css';
 
 function App() {
@@ -41,6 +42,9 @@ function AppContent() {
             
             {/* Galerie */}
             <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
+            
+            {/* Profil Artiste */}
+            <Route path="/artist/:id" element={<PageTransition><ArtistProfilePage /></PageTransition>} />
             
             {/* Outil d'analyse pour artistes */}
             <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
