@@ -3,12 +3,22 @@
 const { OpenAI } = require('openai');
 const crypto = require('crypto');
 
-// Configuration du client OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  timeout: 30000, // 30 secondes timeout
-  maxRetries: 3
-});
+// Configuration du client OpenAI (lazy loading)
+let openai = null;
+function getOpenAIClient() {
+  if (!openai) {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      throw new Error('OPENAI_API_KEY environment variable is missing');
+    }
+    openai = new OpenAI({
+      apiKey: apiKey,
+      timeout: 30000, // 30 secondes timeout
+      maxRetries: 3
+    });
+  }
+  return openai;
+}
 
 // Cache simple en mémoire pour éviter les appels répétés (TTL: 24h)
 class SimpleCache {
@@ -175,7 +185,8 @@ async function generateArtistProfile(artworks, options = {}) {
     console.log('[AI Profile] Calling OpenAI API...');
     const startTime = Date.now();
     
-    const response = await openai.chat.completions.create({
+    const client = getOpenAIClient();
+    const response = await client.chat.completions.create({
       model: model,
       messages: [
         { role: 'system', content: systemPrompt },
