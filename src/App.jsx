@@ -2,7 +2,9 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from './contexts/AuthContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
+import { CartProvider } from './contexts/CartContext';
 import InstitutionalNav from './components/InstitutionalNav';
+import CartDrawer from './components/CartDrawer';
 import JarvisAI from './components/JarvisAI';
 import LandingPage from './pages/LandingPage';
 import InstitutionalHomePage from './pages/InstitutionalHomePage';
@@ -15,6 +17,8 @@ import DemoLogin from './pages/DemoLogin';
 import SearchResultsPage from './pages/SearchResultsPage';
 import RoomViewPage from './pages/RoomViewPage';
 import FavoritesPage from './pages/FavoritesPage';
+import CheckoutPage from './pages/CheckoutPage';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import './index.css';
 import './styles/institutional-theme.css';
 
@@ -37,57 +41,66 @@ function AppContent() {
 
   return (
     <FavoritesProvider user={user}>
-      <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 selection:text-white">
-        {/* Navigation institutionnelle minimaliste */}
-        <InstitutionalNav />
+      <CartProvider>
+        <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 selection:text-white">
+          {/* Navigation institutionnelle minimaliste */}
+          <InstitutionalNav />
 
-        {/* Contenu principal */}
-        <main>
-          <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              {/* Landing Page Marketing (original) */}
-              <Route path="/landing" element={<PageTransition><LandingPage /></PageTransition>} />
-              
-              {/* Home - Style galerie institutionnelle */}
-              <Route path="/" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
-              
-              {/* Galerie Blue Cinis (backup) */}
-              <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
-              
-              {/* Profil Artiste Public */}
-              <Route path="/artist/:id" element={<PageTransition><ArtistProfilePage /></PageTransition>} />
-              
-              {/* Profil Utilisateur Connecté */}
-              <Route path="/profile" element={<PageTransition><UserProfile /></PageTransition>} />
-              
-              {/* Login Demo */}
-              <Route path="/login" element={<PageTransition><DemoLogin /></PageTransition>} />
-              
-              {/* Résultats de recherche */}
-              <Route path="/recherche" element={<PageTransition><SearchResultsPage /></PageTransition>} />
-              
-              {/* Favoris */}
-              <Route path="/favoris" element={<PageTransition><FavoritesPage /></PageTransition>} />
-              
-              {/* Outil d'analyse pour artistes */}
-              <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
-              
-              {/* Dashboard Artiste */}
-              <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
-              
-              {/* Visualisation murale */}
-              <Route path="/visualiser/:artworkId" element={<PageTransition><RoomViewPage /></PageTransition>} />
-              <Route path="/visualiser" element={<PageTransition><RoomViewPage /></PageTransition>} />
-              
-              {/* Fallback */}
-              <Route path="*" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
-            </Routes>
-          </AnimatePresence>
-        </main>
+          {/* Drawer panier */}
+          <CartDrawer />
 
-        {/* Assistant IA JARVIS */}
-        <JarvisAI />
-      </div>
+          {/* Contenu principal */}
+          <main>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                {/* Landing Page Marketing (original) */}
+                <Route path="/landing" element={<PageTransition><LandingPage /></PageTransition>} />
+                
+                {/* Home - Style galerie institutionnelle */}
+                <Route path="/" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
+                
+                {/* Galerie Blue Cinis (backup) */}
+                <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
+                
+                {/* Profil Artiste Public */}
+                <Route path="/artist/:id" element={<PageTransition><ArtistProfilePage /></PageTransition>} />
+                
+                {/* Profil Utilisateur Connecté */}
+                <Route path="/profile" element={<PageTransition><UserProfile /></PageTransition>} />
+                
+                {/* Login Demo */}
+                <Route path="/login" element={<PageTransition><DemoLogin /></PageTransition>} />
+                
+                {/* Résultats de recherche */}
+                <Route path="/recherche" element={<PageTransition><SearchResultsPage /></PageTransition>} />
+                
+                {/* Favoris */}
+                <Route path="/favoris" element={<PageTransition><FavoritesPage /></PageTransition>} />
+                
+                {/* Checkout */}
+                <Route path="/checkout" element={<PageTransition><CheckoutPage /></PageTransition>} />
+                <Route path="/checkout/success" element={<PageTransition><CheckoutSuccessPage /></PageTransition>} />
+                
+                {/* Outil d'analyse pour artistes */}
+                <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
+                
+                {/* Dashboard Artiste */}
+                <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
+                
+                {/* Visualisation murale */}
+                <Route path="/visualiser/:artworkId" element={<PageTransition><RoomViewPage /></PageTransition>} />
+                <Route path="/visualiser" element={<PageTransition><RoomViewPage /></PageTransition>} />
+                
+                {/* Fallback */}
+                <Route path="*" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
+              </Routes>
+            </AnimatePresence>
+          </main>
+
+          {/* Assistant IA JARVIS */}
+          <JarvisAI />
+        </div>
+      </CartProvider>
     </FavoritesProvider>
   );
 }
