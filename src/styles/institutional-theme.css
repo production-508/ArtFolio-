@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Couleurs institutionnelles */
+  --color-bg: #000000;
+  --color-text: #FFFFFF;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  
+  /* Espacement galerie */
+  --spacing-gallery: 60px;
+  
+  /* Typographie */
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Classes utilitaires typographie galerie */
+.text-gallery-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+.text-gallery-artist {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.text-gallery-meta {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+/* Variantes responsive */
+@media (min-width: 768px) {
+  .text-gallery-title {
+    letter-spacing: 0.03em;
+  }
+  
+  .text-gallery-meta {
+    letter-spacing: 0.2em;
+  }
+}
+
+/* Hiérarchie typographique complémentaire */
+.text-gallery-display {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.text-gallery-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.text-gallery-caption {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+/* Espacement galerie utilitaires */
+.spacing-gallery {
+  margin-bottom: var(--spacing-gallery);
+}
+
+.spacing-gallery-half {
+  margin-bottom: calc(var(--spacing-gallery) / 2);
+}
+
+/* Contexte sombre par défaut */
+.theme-gallery {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}

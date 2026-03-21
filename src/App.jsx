@@ -1,15 +1,14 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Navigation } from './components/Navigation';
-import { ImmersiveBottomNav } from './components/ImmersiveBottomNav';
-import { CustomCursor } from './components/CustomCursor';
-import { GradientOrbs } from './components/GradientOrbs';
+import { InstitutionalNav } from './components/InstitutionalNav';
 import LandingPage from './pages/LandingPage';
+import InstitutionalHomePage from './pages/InstitutionalHomePage';
 import HomePage from './pages/HomePage';
 import AnalyzePage from './pages/AnalyzePage';
 import ArtistDashboard from './pages/ArtistDashboard';
 import ArtistProfilePage from './pages/ArtistProfilePage';
 import './index.css';
+import './styles/institutional-theme.css';
 
 function App() {
   return <AppContent />;
@@ -19,28 +18,21 @@ function AppContent() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* Cursor personnalisé - desktop uniquement */}
-      <div className="hidden md:block">
-        <CustomCursor />
-      </div>
-      
-      {/* Background orbes */}
-      <div className="fixed inset-0 pointer-events-none">
-        <GradientOrbs count={3} />
-      </div>
-
-      {/* Navigation desktop */}
-      <Navigation />
+    <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 selection:text-white">
+      {/* Navigation institutionnelle minimaliste */}
+      <InstitutionalNav />
 
       {/* Contenu principal */}
-      <main className="md:pb-0">
+      <main>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            {/* Landing Page Marketing */}
-            <Route path="/" element={<PageTransition><LandingPage /></PageTransition>} />
+            {/* Landing Page Marketing (original) */}
+            <Route path="/landing" element={<PageTransition><LandingPage /></PageTransition>} />
             
-            {/* Galerie */}
+            {/* Home - Style galerie institutionnelle */}
+            <Route path="/" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
+            
+            {/* Galerie Blue Cinis (backup) */}
             <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
             
             {/* Profil Artiste */}
@@ -53,13 +45,10 @@ function AppContent() {
             <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
             
             {/* Fallback */}
-            <Route path="*" element={<PageTransition><LandingPage /></PageTransition>} />
+            <Route path="*" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </main>
-
-      {/* Bottom nav mobile - Blue Cinis style */}
-      <ImmersiveBottomNav />
     </div>
   );
 }
@@ -70,7 +59,7 @@ function PageTransition({ children }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {children}
     </motion.div>

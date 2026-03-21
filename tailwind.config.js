@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'Georgia', 'Times New Roman', 'serif'],
       },
       colors: {
         spatial: {
