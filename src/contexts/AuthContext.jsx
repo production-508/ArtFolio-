@@ -85,6 +85,27 @@ export function AuthProvider({ children }) {
     setIsAuthenticated(false);
   };
 
+  // Login démo avec comptes prédéfinis
+  const loginDemo = async (type = 'visitor', remember = true) => {
+    try {
+      const data = await apiFetch('/auth/demo-login', {
+        method: 'POST',
+        body: JSON.stringify({ type }),
+      });
+      
+      if (remember) {
+        localStorage.setItem('artfolio_token', data.token);
+      }
+      setToken(data.token);
+      setUser(data.user);
+      setIsAuthenticated(true);
+      return true;
+    } catch (err) {
+      console.error('Demo login error:', err);
+      return false;
+    }
+  };
+
   // Générer les initiales pour l'avatar
   const getInitials = () => {
     if (!user?.name) return '?';
@@ -105,6 +126,7 @@ export function AuthProvider({ children }) {
     isAdmin,
     isCollector,
     login,
+    loginDemo,
     register,
     logout,
     apiFetch,

@@ -9,6 +9,7 @@ import AnalyzePage from './pages/AnalyzePage';
 import ArtistDashboard from './pages/ArtistDashboard';
 import ArtistProfilePage from './pages/ArtistProfilePage';
 import UserProfile from './pages/UserProfile';
+import DemoLogin from './pages/DemoLogin';
 import './index.css';
 import './styles/institutional-theme.css';
 
@@ -52,6 +53,9 @@ function AppContent() {
             
             {/* Profil Utilisateur Connecté */}
             <Route path="/profile" element={<PageTransition><UserProfile /></PageTransition>} />
+            
+            {/* Login Demo */}
+            <Route path="/login" element={<PageTransition><DemoLogin /></PageTransition>} />
             
             {/* Outil d'analyse pour artistes */}
             <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
