@@ -1,192 +1,177 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Search, Bell, User, Command } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import './JarvisNav.css';
 
-/**
- * Navigation JARVIS — Flottante, glassmorphism, effets néon
- */
-export default function JarvisNav() {
-  const location = useLocation();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
+const JarvisNav = ({ onCommandPalette, onNotifications }) => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeItem, setActiveItem] = useState('home');
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navItems = [
-    { path: '/', label: 'Galerie' },
-    { path: '/artistes', label: 'Artistes' },
-    { path: '/recherche', label: 'Recherche' },
-    { path: '/favoris', label: 'Favoris' },
+    { id: 'home', label: 'HOME', icon: '⌂' },
+    { id: 'systems', label: 'SYSTEMS', icon: '◈' },
+    { id: 'analytics', label: 'ANALYTICS', icon: '◉' },
+    { id: 'network', label: 'NETWORK', icon: '◊' },
+    { id: 'settings', label: 'SETTINGS', icon: '◐' },
   ];
 
   return (
     <>
-      {/* Main Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`
-          fixed top-4 left-1/2 -translate-x-1/2 z-50
-          px-6 py-3 rounded-full
-          transition-all duration-500
-          ${isScrolled 
-            ? 'bg-black/80 backdrop-blur-xl shadow-[0_0_30px_rgba(0,240,255,0.1)]' 
-            : 'bg-transparent'}
-          border border-cyan-400/20
-        `}
-      >
-        <div className="flex items-center gap-8">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <motion.div
-              animate={{ 
-                boxShadow: ['0 0 5px rgba(0,240,255,0.5)', '0 0 20px rgba(0,240,255,0.8)', '0 0 5px rgba(0,240,255,0.5)']
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center"
-            >
-              <span className="text-black font-bold text-sm">A</span>
-            </motion.div>
-            <span 
-              className="text-cyan-400 font-bold tracking-[0.2em] text-sm hidden sm:block"
-              style={{ fontFamily: "'Orbitron', monospace" }}
-            >
-              ARTFOLIO
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="relative group"
-              >
-                <span 
-                  className={`
-                    text-sm uppercase tracking-widest transition-colors duration-300
-                    ${location.pathname === item.path 
-                      ? 'text-cyan-400' 
-                      : 'text-white/60 hover:text-cyan-400'}
-                  `}
-                  style={{ fontFamily: "'Orbitron', monospace" }}
-                >
-                  {item.label}
-                </span>
-                
-                {/* Underline glow */}
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: location.pathname === item.path ? 1 : 0 }}
-                  className="absolute -bottom-1 left-0 right-0 h-[2px] bg-cyan-400 origin-left"
-                  style={{ boxShadow: '0 0 10px rgba(0, 240, 255, 0.8)' }}
-                />
-              </Link>
-            ))}
+      {/* Main Navigation Bar */}
+      <nav className={`jarvis-nav ${scrolled ? 'scrolled' : ''}`}>
+        {/* Animated gradient border */}
+        <div className="nav-border-gradient" />
+        
+        {/* Logo */}
+        <div className="nav-logo">
+          <div className="logo-icon">
+            <svg viewBox="0 0 40 40" className="logo-svg">
+              <defs>
+                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#00d4ff" />
+                  <stop offset="50%" stopColor="#0099ff" />
+                  <stop offset="100%" stopColor="#6610f2" />
+                </linearGradient>
+              </defs>
+              <circle cx="20" cy="20" r="16" fill="none" stroke="url(#logoGrad)" strokeWidth="2" />
+              <circle cx="20" cy="20" r="8" fill="url(#logoGrad)" opacity="0.8" />
+              <path d="M20 4 L20 12 M20 28 L20 36 M4 20 L12 20 M28 20 L36 20" stroke="url(#logoGrad)" strokeWidth="2" />
+            </svg>
           </div>
+          <span className="logo-text">J.A.R.V.I.S.</span>
+        </div>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-4">
-            {/* Search */}
-            <button className="p-2 text-white/60 hover:text-cyan-400 transition-colors">
-              <Search size={18} />
-            </button>
-
-            {/* Notifications */}
-            <div className="relative">
-              <button 
-                onClick={() => setNotificationsOpen(!notificationsOpen)}
-                className="p-2 text-white/60 hover:text-cyan-400 transition-colors relative"
-              >
-                <Bell size={18} />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-              </button>
-
-              <AnimatePresence>
-                {notificationsOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute right-0 top-full mt-4 w-80 bg-black/90 backdrop-blur-xl border border-cyan-400/30 rounded-lg overflow-hidden"
-                  >
-                    <div className="p-4 border-b border-cyan-400/20">
-                      <span className="text-cyan-400 text-sm uppercase tracking-widest"
-                            style={{ fontFamily: "'Orbitron', monospace" }}>
-                        Notifications
-                      </span>
-                    </div>
-                    <div className="p-4 space-y-3">
-                      {[
-                        { text: 'Nouvelle œuvre de Elena V.', time: '2m' },
-                        { text: 'Votre commande est confirmée', time: '1h' },
-                        { text: '5 œuvres ajoutées aux favoris', time: '3h' },
-                      ].map((notif, i) => (
-                        <div key={i} className="flex justify-between items-start text-sm">
-                          <span className="text-white/70">{notif.text}</span>
-                          <span className="text-white/40 text-xs">{notif.time}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Profile */}
-            <Link to="/profile" className="p-2 text-white/60 hover:text-cyan-400 transition-colors">
-              <User size={18} />
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <button 
-              className="md:hidden p-2 text-white/60 hover:text-cyan-400"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        {/* Navigation Items */}
+        <ul className="nav-items">
+          {navItems.map((item) => (
+            <li
+              key={item.id}
+              className={`nav-item ${activeItem === item.id ? 'active' : ''}`}
+              onMouseEnter={() => setHoveredItem(item.id)}
+              onMouseLeave={() => setHoveredItem(null)}
+              onClick={() => setActiveItem(item.id)}
             >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+              <span className="nav-icon">{item.icon}</span>
+              <span className="nav-label">{item.label}</span>
+              
+              {/* Glow effect on hover */}
+              {hoveredItem === item.id && (
+                <div className="nav-item-glow" />
+              )}
+              
+              {/* Active indicator */}
+              {activeItem === item.id && (
+                <div className="nav-active-line" />
+              )}
+            </li>
+          ))}
+        </ul>
+
+        {/* Right Actions */}
+        <div className="nav-actions">
+          {/* Search */}
+          <button 
+            className="nav-action-btn search-btn"
+            onClick={onCommandPalette}
+            title="Command Palette (Cmd+K)"
+          >
+            <span className="action-icon">⌘</span>
+            <span className="action-shortcut">K</span>
+          </button>
+
+          {/* Notifications */}
+          <button 
+            className="nav-action-btn notif-btn"
+            onClick={onNotifications}
+          >
+            <span className="action-icon">◉</span>
+            <span className="notif-badge">3</span>
+          </button>
+
+          {/* User Avatar */}
+          <div className="nav-user">
+            <div className="user-avatar">
+              <span>T</span>
+              <div className="avatar-status online" />
+            </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex items-center justify-center"
-          >
-            <div className="text-center space-y-8">
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.path}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Link
-                    to={item.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-3xl uppercase tracking-[0.3em] text-white/80 hover:text-cyan-400 transition-colors"
-                    style={{ fontFamily: "'Orbitron', monospace" }}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Fullscreen Menu Overlay */}
+      <FullscreenMenu 
+        isOpen={activeItem === 'menu'} 
+        onClose={() => setActiveItem('home')}
+      />
     </>
   );
-}
+};
+
+// Fullscreen Menu Component
+const FullscreenMenu = ({ isOpen, onClose }) => {
+  const menuSections = [
+    {
+      title: 'SYSTEM CONTROL',
+      items: ['Dashboard', 'Monitoring', 'Diagnostics', 'Logs'],
+      color: '#00d4ff'
+    },
+    {
+      title: 'INTELLIGENCE',
+      items: ['AI Models', 'Predictions', 'Analysis', 'Reports'],
+      color: '#ff006e'
+    },
+    {
+      title: 'SECURITY',
+      items: ['Access Control', 'Encryption', 'Firewalls', 'Audit'],
+      color: '#fb5607'
+    },
+    {
+      title: 'AUTOMATION',
+      items: ['Scripts', 'Schedules', 'Triggers', 'Workflows'],
+      color: '#8338ec'
+    }
+  ];
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fullscreen-menu-overlay" onClick={onClose}>
+      <div className="fullscreen-menu" onClick={(e) => e.stopPropagation()}>
+        <button className="menu-close" onClick={onClose}>×</button>
+        
+        <div className="menu-grid">
+          {menuSections.map((section, idx) => (
+            <div 
+              key={section.title}
+              className="menu-section"
+              style={{ '--section-color': section.color, animationDelay: `${idx * 0.1}s` }}
+            >
+              <h3 className="section-title">{section.title}</h3>
+              <ul className="section-items">
+                {section.items.map((item) => (
+                  <li key={item} className="section-item">
+                    <span className="item-bullet" style={{ background: section.color }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="menu-decorator top-left" />
+        <div className="menu-decorator bottom-right" />
+      </div>
+    </div>
+  );
+};
+
+export default JarvisNav;

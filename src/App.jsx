@@ -20,6 +20,7 @@ import FavoritesPage from './pages/FavoritesPage';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import JarvisDashboardPage from './pages/JarvisDashboardPage';
+import JarvisArtworkViewerPage from './pages/JarvisArtworkViewerPage';
 import './index.css';
 import './styles/institutional-theme.css';
 import './styles/jarvis-theme.css';
@@ -91,6 +92,9 @@ function AppContent() {
                 
                 {/* Dashboard JARVIS */}
                 <Route path="/jarvis" element={<PageTransition><JarvisDashboardPage /></PageTransition>} />
+                
+                {/* Artwork Viewer JARVIS HUD */}
+                <Route path="/jarvis/artwork/:artworkId" element={<PageTransition><JarvisArtworkViewerPage /></PageTransition>} />
                 
                 {/* Visualisation murale */}
                 <Route path="/visualiser/:artworkId" element={<PageTransition><RoomViewPage /></PageTransition>} />

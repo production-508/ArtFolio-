@@ -1,0 +1,321 @@
+/* JarvisCard.css - Styles pour les cartes glassmorphism */
+
+.jarvis-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--jarvis-radius-lg, 12px);
+  background: transparent;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* ============================================
+   ARRIÈRE-PLAN GLASSMORPHISM
+   ============================================ */
+
+.jarvis-card__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(18, 18, 26, 0.8) 0%, 
+    rgba(10, 10, 15, 0.9) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+/* ============================================
+   BORDURE GRADIENT ANIMÉE
+   ============================================ */
+
+.jarvis-card__border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    rgba(0, 240, 255, 0.6) 0%, 
+    rgba(255, 0, 110, 0.4) 50%,
+    rgba(0, 240, 255, 0.6) 100%);
+  background-size: 200% 200%;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-shift 4s ease infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes border-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ============================================
+   EFFET DE GLOW
+   ============================================ */
+
+.jarvis-card__glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.jarvis-card--glow-cyan .jarvis-card__glow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 240, 255, 0.15) 0%,
+    transparent 70%
+  );
+  box-shadow: 
+    0 0 30px rgba(0, 240, 255, 0.2),
+    0 0 60px rgba(0, 240, 255, 0.1),
+    inset 0 0 30px rgba(0, 240, 255, 0.05);
+  opacity: 1;
+}
+
+.jarvis-card--glow-magenta .jarvis-card__glow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 110, 0.15) 0%,
+    transparent 70%
+  );
+  box-shadow: 
+    0 0 30px rgba(255, 0, 110, 0.2),
+    0 0 60px rgba(255, 0, 110, 0.1),
+    inset 0 0 30px rgba(255, 0, 110, 0.05);
+  opacity: 1;
+}
+
+/* ============================================
+   CONTENU
+   ============================================ */
+
+.jarvis-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.jarvis-card__header {
+  padding: var(--jarvis-space-4, 1rem) var(--jarvis-space-6, 1.5rem);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+.jarvis-card__title {
+  margin: 0;
+  font-size: var(--jarvis-text-lg, 1.125rem);
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #00f0ff, #ff006e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.jarvis-card__body {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.jarvis-card__footer {
+  padding: var(--jarvis-space-4, 1rem) var(--jarvis-space-6, 1.5rem);
+  border-top: 1px solid rgba(0, 240, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--jarvis-space-3, 0.75rem);
+}
+
+/* ============================================
+   PADDING VARIANTS
+   ============================================ */
+
+.jarvis-card--none .jarvis-card__body {
+  padding: 0;
+}
+
+.jarvis-card--sm .jarvis-card__body {
+  padding: var(--jarvis-space-3, 0.75rem);
+}
+
+.jarvis-card--md .jarvis-card__body {
+  padding: var(--jarvis-space-6, 1.5rem);
+}
+
+.jarvis-card--lg .jarvis-card__body {
+  padding: var(--jarvis-space-8, 2rem);
+}
+
+.jarvis-card--xl .jarvis-card__body {
+  padding: var(--jarvis-space-10, 2.5rem);
+}
+
+/* ============================================
+   VARIANTES
+   ============================================ */
+
+/* Default - Glassmorphism standard */
+.jarvis-card--default {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* Elevated - Plus d'ombre */
+.jarvis-card--elevated {
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+.jarvis-card--elevated .jarvis-card__bg {
+  background: linear-gradient(135deg, 
+    rgba(26, 26, 37, 0.9) 0%, 
+    rgba(18, 18, 26, 0.95) 100%);
+}
+
+/* Outlined - Bordure plus visible */
+.jarvis-card--outlined .jarvis-card__border {
+  padding: 2px;
+  background: linear-gradient(135deg, 
+    rgba(0, 240, 255, 0.8) 0%, 
+    rgba(255, 0, 110, 0.6) 50%,
+    rgba(0, 240, 255, 0.8) 100%);
+}
+
+/* Flat - Sans effets */
+.jarvis-card--flat .jarvis-card__bg {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(18, 18, 26, 0.95);
+}
+
+.jarvis-card--flat .jarvis-card__border {
+  background: rgba(0, 240, 255, 0.2);
+  animation: none;
+}
+
+.jarvis-card--flat .jarvis-card__glow {
+  display: none;
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+
+.jarvis-card--hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.jarvis-card--hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.4),
+    0 10px 10px -5px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 240, 255, 0.15);
+}
+
+.jarvis-card--hover:hover .jarvis-card__border {
+  background: linear-gradient(135deg, 
+    rgba(0, 240, 255, 0.9) 0%, 
+    rgba(255, 0, 110, 0.7) 50%,
+    rgba(0, 240, 255, 0.9) 100%);
+}
+
+/* ============================================
+   SCANLINE EFFECT
+   ============================================ */
+
+.jarvis-card__scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 240, 255, 0.3) 50%, 
+    transparent 100%);
+  opacity: 0;
+  animation: card-scanline 4s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes card-scanline {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   CORNER ACCENTS
+   ============================================ */
+
+.jarvis-card::before,
+.jarvis-card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.jarvis-card::before {
+  top: 8px;
+  left: 8px;
+  border-top-color: rgba(0, 240, 255, 0.5);
+  border-left-color: rgba(0, 240, 255, 0.5);
+}
+
+.jarvis-card::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom-color: rgba(255, 0, 110, 0.5);
+  border-right-color: rgba(255, 0, 110, 0.5);
+}
+
+.jarvis-card:hover::before {
+  border-top-color: #00f0ff;
+  border-left-color: #00f0ff;
+  box-shadow: -2px -2px 10px rgba(0, 240, 255, 0.5);
+}
+
+.jarvis-card:hover::after {
+  border-bottom-color: #ff006e;
+  border-right-color: #ff006e;
+  box-shadow: 2px 2px 10px rgba(255, 0, 110, 0.5);
+}

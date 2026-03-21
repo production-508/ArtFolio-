@@ -1,0 +1,331 @@
+/* JarvisButton.css - Styles pour le bouton néon ripple */
+
+.jarvis-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--jarvis-font-family, 'Inter', sans-serif);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: var(--jarvis-radius-md, 8px);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  isolation: isolate;
+}
+
+/* ============================================
+   VARIANTES
+   ============================================ */
+
+/* Primary - Cyan néon */
+.jarvis-button--primary {
+  background: linear-gradient(135deg, 
+    rgba(0, 240, 255, 0.15) 0%, 
+    rgba(0, 240, 255, 0.05) 100%);
+  color: #00f0ff;
+  box-shadow: 
+    0 0 10px rgba(0, 240, 255, 0.2),
+    inset 0 0 20px rgba(0, 240, 255, 0.05);
+}
+
+.jarvis-button--primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, 
+    rgba(0, 240, 255, 0.25) 0%, 
+    rgba(0, 240, 255, 0.1) 100%);
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.4),
+    0 0 40px rgba(0, 240, 255, 0.2),
+    inset 0 0 30px rgba(0, 240, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.jarvis-button--primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 10px rgba(0, 240, 255, 0.3),
+    inset 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+/* Secondary - Magenta néon */
+.jarvis-button--secondary {
+  background: linear-gradient(135deg, 
+    rgba(255, 0, 110, 0.15) 0%, 
+    rgba(255, 0, 110, 0.05) 100%);
+  color: #ff006e;
+  box-shadow: 
+    0 0 10px rgba(255, 0, 110, 0.2),
+    inset 0 0 20px rgba(255, 0, 110, 0.05);
+}
+
+.jarvis-button--secondary:hover:not(:disabled) {
+  background: linear-gradient(135deg, 
+    rgba(255, 0, 110, 0.25) 0%, 
+    rgba(255, 0, 110, 0.1) 100%);
+  box-shadow: 
+    0 0 20px rgba(255, 0, 110, 0.4),
+    0 0 40px rgba(255, 0, 110, 0.2),
+    inset 0 0 30px rgba(255, 0, 110, 0.1);
+  transform: translateY(-2px);
+}
+
+.jarvis-button--secondary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 10px rgba(255, 0, 110, 0.3),
+    inset 0 0 20px rgba(255, 0, 110, 0.1);
+}
+
+/* Ghost - Transparent avec hover */
+.jarvis-button--ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.jarvis-button--ghost:hover:not(:disabled) {
+  background: rgba(0, 240, 255, 0.1);
+  color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+}
+
+/* Outline - Bordure néon */
+.jarvis-button--outline {
+  background: transparent;
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+}
+
+.jarvis-button--outline:hover:not(:disabled) {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: #00f0ff;
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.3),
+    inset 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+/* ============================================
+   TAILLES
+   ============================================ */
+
+.jarvis-button--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  border-radius: var(--jarvis-radius-sm, 4px);
+}
+
+.jarvis-button--md {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+}
+
+.jarvis-button--lg {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.jarvis-button--xl {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+}
+
+/* ============================================
+   ÉTATS
+   ============================================ */
+
+.jarvis-button--disabled,
+.jarvis-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.jarvis-button--loading {
+  cursor: wait;
+}
+
+.jarvis-button--full-width {
+  width: 100%;
+}
+
+.jarvis-button--glow.jarvis-button--primary {
+  animation: button-glow-cyan 3s ease-in-out infinite;
+}
+
+.jarvis-button--glow.jarvis-button--secondary {
+  animation: button-glow-magenta 3s ease-in-out infinite;
+}
+
+@keyframes button-glow-cyan {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(0, 240, 255, 0.3),
+      0 0 20px rgba(0, 240, 255, 0.2),
+      inset 0 0 20px rgba(0, 240, 255, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(0, 240, 255, 0.5),
+      0 0 40px rgba(0, 240, 255, 0.3),
+      0 0 60px rgba(0, 240, 255, 0.1),
+      inset 0 0 30px rgba(0, 240, 255, 0.1);
+  }
+}
+
+@keyframes button-glow-magenta {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(255, 0, 110, 0.3),
+      0 0 20px rgba(255, 0, 110, 0.2),
+      inset 0 0 20px rgba(255, 0, 110, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 110, 0.5),
+      0 0 40px rgba(255, 0, 110, 0.3),
+      0 0 60px rgba(255, 0, 110, 0.1),
+      inset 0 0 30px rgba(255, 0, 110, 0.1);
+  }
+}
+
+/* ============================================
+   CONTENU
+   ============================================ */
+
+.jarvis-button__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.jarvis-button__text {
+  position: relative;
+  z-index: 2;
+}
+
+.jarvis-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+.jarvis-button__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.jarvis-button:hover:not(:disabled) .jarvis-button__icon--right {
+  transform: translateX(3px);
+}
+
+.jarvis-button:hover:not(:disabled) .jarvis-button__icon--left {
+  transform: translateX(-3px);
+}
+
+/* ============================================
+   RIPPLE EFFECT
+   ============================================ */
+
+.jarvis-button__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.4) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%);
+  transform: scale(0);
+  animation: ripple-effect 0.6s ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   BORDURE ANIMÉE
+   ============================================ */
+
+.jarvis-button__border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    rgba(0, 240, 255, 0.6), 
+    rgba(255, 0, 110, 0.6));
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.jarvis-button:hover:not(:disabled) .jarvis-button__border {
+  opacity: 1;
+}
+
+/* ============================================
+   SCANLINE INTERNE
+   ============================================ */
+
+.jarvis-button__scanline {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.jarvis-button:hover:not(:disabled) .jarvis-button__scanline {
+  left: 100%;
+}
+
+/* ============================================
+   SPINNER (Loading)
+   ============================================ */
+
+.jarvis-button__spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.5rem;
+}
+
+.jarvis-button__spinner svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
+}

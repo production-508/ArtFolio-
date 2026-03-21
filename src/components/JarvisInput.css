@@ -1,0 +1,403 @@
+/* JarvisInput.css - Styles pour les inputs underline néon */
+
+.jarvis-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--jarvis-font-family, 'Inter', sans-serif);
+}
+
+/* ============================================
+   LABEL
+   ============================================ */
+
+.jarvis-input__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.jarvis-input--focused .jarvis-input__label {
+  color: #00f0ff;
+}
+
+.jarvis-input--error .jarvis-input__label {
+  color: #ff006e;
+}
+
+.jarvis-input__required {
+  color: #ff006e;
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.jarvis-input__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ============================================
+   ICÔNE
+   ============================================ */
+
+.jarvis-input__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+.jarvis-input__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.jarvis-input__icon--left {
+  left: 0.75rem;
+}
+
+.jarvis-input__icon--right {
+  right: 0.75rem;
+}
+
+.jarvis-input--focused .jarvis-input__icon {
+  color: #00f0ff;
+}
+
+.jarvis-input--error .jarvis-input__icon {
+  color: #ff006e;
+}
+
+/* ============================================
+   CHAMP INPUT
+   ============================================ */
+
+.jarvis-input__field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.jarvis-input__field::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.jarvis-input__field:disabled {
+  cursor: not-allowed;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   VARIANTES
+   ============================================ */
+
+/* Default - Underline néon */
+.jarvis-input--default .jarvis-input__field {
+  padding: 0.75rem 0;
+  background: linear-gradient(180deg, 
+    rgba(0, 240, 255, 0.03) 0%, 
+    transparent 100%);
+}
+
+.jarvis-input--default.jarvis-input--icon-left .jarvis-input__field {
+  padding-left: 2.5rem;
+}
+
+.jarvis-input--default.jarvis-input--icon-right .jarvis-input__field {
+  padding-right: 2.5rem;
+}
+
+/* Filled - Fond glassmorphism */
+.jarvis-input--filled .jarvis-input__container {
+  background: rgba(18, 18, 26, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: var(--jarvis-radius-md, 8px);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.jarvis-input--filled .jarvis-input__field {
+  padding: 0.875rem 1rem;
+}
+
+.jarvis-input--filled.jarvis-input--icon-left .jarvis-input__field {
+  padding-left: 2.75rem;
+}
+
+.jarvis-input--filled.jarvis-input--icon-right .jarvis-input__field {
+  padding-right: 2.75rem;
+}
+
+.jarvis-input--filled.jarvis-input--focused .jarvis-input__container {
+  background: rgba(18, 18, 26, 0.95);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.1),
+    inset 0 0 20px rgba(0, 240, 255, 0.05);
+}
+
+.jarvis-input--filled.jarvis-input--error .jarvis-input__container {
+  border-color: rgba(255, 0, 110, 0.4);
+}
+
+.jarvis-input--filled.jarvis-input--error.jarvis-input--focused .jarvis-input__container {
+  box-shadow: 
+    0 0 20px rgba(255, 0, 110, 0.1),
+    inset 0 0 20px rgba(255, 0, 110, 0.05);
+}
+
+/* Outlined - Bordure complète */
+.jarvis-input--outlined .jarvis-input__container {
+  background: transparent;
+  border-radius: var(--jarvis-radius-md, 8px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.jarvis-input--outlined .jarvis-input__field {
+  padding: 0.875rem 1rem;
+}
+
+.jarvis-input--outlined.jarvis-input--icon-left .jarvis-input__field {
+  padding-left: 2.75rem;
+}
+
+.jarvis-input--outlined.jarvis-input--icon-right .jarvis-input__field {
+  padding-right: 2.75rem;
+}
+
+.jarvis-input--outlined.jarvis-input--focused .jarvis-input__container {
+  border-color: #00f0ff;
+  box-shadow: 
+    0 0 10px rgba(0, 240, 255, 0.3),
+    inset 0 0 10px rgba(0, 240, 255, 0.05);
+}
+
+.jarvis-input--outlined.jarvis-input--error .jarvis-input__container {
+  border-color: #ff006e;
+}
+
+/* Underlined - Ligne en bas seulement */
+.jarvis-input--underlined .jarvis-input__field {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.jarvis-input--underlined.jarvis-input--icon-left .jarvis-input__field {
+  padding-left: 2.5rem;
+}
+
+.jarvis-input--underlined.jarvis-input--icon-right .jarvis-input__field {
+  padding-right: 2.5rem;
+}
+
+/* ============================================
+   UNDERLINE NÉON (pour variant default)
+   ============================================ */
+
+.jarvis-input__underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+}
+
+.jarvis-input__underline-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.jarvis-input__underline-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #00f0ff 50%, 
+    transparent 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  box-shadow: 
+    0 0 10px #00f0ff,
+    0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.jarvis-input--focused .jarvis-input__underline-glow {
+  transform: scaleX(1);
+}
+
+.jarvis-input--error .jarvis-input__underline-glow {
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #ff006e 50%, 
+    transparent 100%);
+  box-shadow: 
+    0 0 10px #ff006e,
+    0 0 20px rgba(255, 0, 110, 0.5);
+}
+
+/* ============================================
+   FOCUS EFFECT
+   ============================================ */
+
+.jarvis-input__focus-effect {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.jarvis-input--focused .jarvis-input__focus-effect {
+  opacity: 1;
+}
+
+.jarvis-input--glow-cyan .jarvis-input__focus-effect {
+  box-shadow: 
+    0 0 0 1px rgba(0, 240, 255, 0.3),
+    0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+.jarvis-input--glow-magenta .jarvis-input__focus-effect {
+  box-shadow: 
+    0 0 0 1px rgba(255, 0, 110, 0.3),
+    0 0 20px rgba(255, 0, 110, 0.1);
+}
+
+/* ============================================
+   ERROR ICON
+   ============================================ */
+
+.jarvis-input__error-icon {
+  position: absolute;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ff006e;
+  animation: error-pulse 2s ease-in-out infinite;
+}
+
+.jarvis-input__error-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes error-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* ============================================
+   HELPER TEXT
+   ============================================ */
+
+.jarvis-input__helper {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.jarvis-input__helper--error {
+  color: #ff006e;
+  text-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
+}
+
+/* ============================================
+   TAILLES
+   ============================================ */
+
+.jarvis-input--sm .jarvis-input__field {
+  font-size: 0.875rem;
+}
+
+.jarvis-input--sm.jarvis-input--default .jarvis-input__field,
+.jarvis-input--sm.jarvis-input--underlined .jarvis-input__field {
+  padding: 0.5rem 0;
+}
+
+.jarvis-input--sm.jarvis-input--filled .jarvis-input__field,
+.jarvis-input--sm.jarvis-input--outlined .jarvis-input__field {
+  padding: 0.625rem 0.875rem;
+}
+
+.jarvis-input--lg .jarvis-input__field {
+  font-size: 1.125rem;
+}
+
+.jarvis-input--lg.jarvis-input--default .jarvis-input__field,
+.jarvis-input--lg.jarvis-input--underlined .jarvis-input__field {
+  padding: 1rem 0;
+}
+
+.jarvis-input--lg.jarvis-input--filled .jarvis-input__field,
+.jarvis-input--lg.jarvis-input--outlined .jarvis-input__field {
+  padding: 1.125rem 1.25rem;
+}
+
+/* ============================================
+   ÉTATS
+   ============================================ */
+
+.jarvis-input--disabled {
+  opacity: 0.5;
+}
+
+.jarvis-input--disabled .jarvis-input__underline-glow {
+  display: none;
+}
+
+.jarvis-input--full-width {
+  width: 100%;
+}
+
+/* Animation du curseur néon */
+.jarvis-input__field {
+  caret-color: #00f0ff;
+}
+
+.jarvis-input--error .jarvis-input__field {
+  caret-color: #ff006e;
+}
+
+/* Selection highlight */
+.jarvis-input__field::selection {
+  background: rgba(0, 240, 255, 0.3);
+  color: #fff;
+}
+
+.jarvis-input--error .jarvis-input__field::selection {
+  background: rgba(255, 0, 110, 0.3);
+}

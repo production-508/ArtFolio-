@@ -1,58 +1,167 @@
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import './JarvisButton.css';
 
 /**
- * Button JARVIS — Néon ripple effect
+ * JarvisButton - Bouton avec effet néon ripple
+ * 
+ * Style: Néon cyberpunk avec ripple effect au clic
+ * Couleurs: Cyan #00f0ff, Magenta #ff006e
+ * Effets: Glow, ripple, hover animations
  */
-export default function JarvisButton({ 
-  children, 
-  variant = 'default', 
+
+const JarvisButton = ({
+  children,
+  variant = 'primary',
   size = 'md',
-  onClick,
+  glow = true,
+  ripple = true,
   disabled = false,
-  className = ''
-}) {
-  const baseStyles = "relative font-tech uppercase tracking-widest overflow-hidden transition-all duration-300 ";
-  
-  const variants = {
-    default: "bg-transparent border border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_20px_rgba(0,240,255,0.5)]",
-    primary: "bg-cyan-400 text-black font-bold hover:bg-white hover:shadow-[0_0_30px_rgba(0,240,255,0.8)]",
-    danger: "bg-transparent border border-pink-500/50 text-pink-500 hover:bg-pink-500/10 hover:shadow-[0_0_20px_rgba(255,0,110,0.5)]",
-    ghost: "bg-transparent text-white/60 hover:text-cyan-400 hover:bg-cyan-400/5"
-  };
-  
-  const sizes = {
-    sm: "px-4 py-2 text-xs",
-    md: "px-6 py-3 text-sm",
-    lg: "px-8 py-4 text-base"
-  };
+  loading = false,
+  fullWidth = false,
+  icon = null,
+  iconPosition = 'left',
+  className = '',
+  onClick,
+  ...props
+}) => {
+  const [ripples, setRipples] = useState([]);
+  const buttonRef = useRef(null);
+
+  // Génère un ripple au clic
+  const handleClick = useCallback((e) => {
+    if (disabled || loading) return;
+
+    if (ripple && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+
+      const newRipple = {
+        id: Date.now(),
+        x,
+        y,
+        size,
+      };
+
+      setRipples((prev) => [...prev, newRipple]);
+
+      // Supprime le ripple après animation
+      setTimeout(() => {
+        setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+      }, 600);
+    }
+
+    onClick?.(e);
+  }, [disabled, loading, ripple, onClick]);
+
+  // Classes CSS dynamiques
+  const buttonClasses = [
+    'jarvis-button',
+    `jarvis-button--${variant}`,
+    `jarvis-button--${size}`,
+    glow && 'jarvis-button--glow',
+    disabled && 'jarvis-button--disabled',
+    loading && 'jarvis-button--loading',
+    fullWidth && 'jarvis-button--full-width',
+    className,
+  ].filter(Boolean).join(' ');
 
   return (
-    <motion.button
-      whileHover={{ scale: disabled ? 1 : 1.02 }}
-      whileTap={{ scale: disabled ? 1 : 0.98 }}
-      onClick={onClick}
-      disabled={disabled}
-      className={`
-        ${baseStyles}
-        ${variants[variant]}
-        ${sizes[size]}
-        ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-        ${className}
-      `}
-      style={{ fontFamily: "'Orbitron', monospace" }}
+    <button
+      ref={buttonRef}
+      className={buttonClasses}
+      onClick={handleClick}
+      disabled={disabled || loading}
+      {...props}
     >
-      {/* Ripple effect overlay */}
-      <span className="absolute inset-0 overflow-hidden">
-        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
+      {/* Effet de scanline interne */}
+      <span className="jarvis-button__scanline" />
+      
+      {/* Bordure néon animée */}
+      <span className="jarvis-button__border" />
+      
+      {/* Contenu du bouton */}
+      <span className="jarvis-button__content">
+        {loading && (
+          <span className="jarvis-button__spinner">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray="31.416"
+                strokeDashoffset="31.416"
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="31.416"
+                  to="0"
+                  dur="1s"
+                  repeatCount="indefinite"
+                />
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  from="0 12 12"
+                  to="360 12 12"
+                  dur="1s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </svg>
+          </span>
+        )}
+        
+        {!loading && icon && iconPosition === 'left' && (
+          <span className="jarvis-button__icon jarvis-button__icon--left">
+            {icon}
+          </span>
+        )}
+        
+        <span className="jarvis-button__text">{children}</span>
+        
+        {!loading && icon && iconPosition === 'right' && (
+          <span className="jarvis-button__icon jarvis-button__icon--right">
+            {icon}
+          </span>
+        )}
       </span>
-      
-      {/* Corner accents */}
-      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-current opacity-50" />
-      <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-current opacity-50" />
-      <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-current opacity-50" />
-      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-current opacity-50" />
-      
-      <span className="relative z-10">{children}</span>
-    </motion.button>
+
+      {/* Ripples */}
+      {ripples.map((rippleItem) => (
+        <span
+          key={rippleItem.id}
+          className="jarvis-button__ripple"
+          style={{
+            left: rippleItem.x,
+            top: rippleItem.y,
+            width: rippleItem.size,
+            height: rippleItem.size,
+          }}
+        />
+      ))}
+    </button>
   );
-}
+};
+
+JarvisButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'outline']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  glow: PropTypes.bool,
+  ripple: PropTypes.bool,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  icon: PropTypes.node,
+  iconPosition: PropTypes.oneOf(['left', 'right']),
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+};
+
+export default JarvisButton;

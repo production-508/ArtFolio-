@@ -1,52 +1,81 @@
-import { motion } from 'framer-motion';
+import React from 'react';
+import PropTypes from 'prop-types';
+import './JarvisCard.css';
 
 /**
- * Card JARVIS — Glassmorphism avec border gradient animé
+ * JarvisCard - Carte avec effet glassmorphism et bordure gradient
+ * 
+ * Style: Glassmorphism avec bordure néon gradient
+ * Effets: Glow, hover lift, gradient animé
  */
-export default function JarvisCard({ 
-  children, 
-  label,
+
+const JarvisCard = ({
+  children,
+  variant = 'default',
+  glow = 'cyan',
+  hover = true,
+  padding = 'md',
+  header = null,
+  footer = null,
   className = '',
-  noGlow = false
-}) {
+  style = {},
+  ...props
+}) => {
+  const cardClasses = [
+    'jarvis-card',
+    `jarvis-card--${variant}`,
+    `jarvis-card--${padding}`,
+    glow && `jarvis-card--glow-${glow}`,
+    hover && 'jarvis-card--hover',
+    className,
+  ].filter(Boolean).join(' ');
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={`
-        relative bg-gradient-to-br from-cyan-500/5 to-pink-500/5
-        backdrop-blur-xl border border-cyan-500/20
-        p-6 overflow-hidden
-        ${!noGlow && 'hover:shadow-[0_0_30px_rgba(0,240,255,0.15)]'}
-        transition-shadow duration-500
-        ${className}
-      `}
-    >
-      {/* Animated border gradient */}
-      <div className="absolute inset-0 rounded-none opacity-50">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-pink-500 to-cyan-400 opacity-20 animate-pulse" />
-      </div>
+    <div className={cardClasses} style={style} {...props}>
+      {/* Couches d'arrière-plan pour effets */}
+      <div className="jarvis-card__bg" />
+      <div className="jarvis-card__glow" />
+      <div className="jarvis-card__border" />
       
-      {/* Label */}
-      {label && (
-        <div className="absolute -top-3 left-4 px-2 bg-[#0a0a0f]"
-             style={{ fontFamily: "'Rajdhani', monospace" }}>
-          <span className="text-xs text-cyan-400 uppercase tracking-[0.3em]">
-            {label}
-          </span>
+      {/* Contenu de la carte */}
+      <div className="jarvis-card__content">
+        {header && (
+          <div className="jarvis-card__header">
+            {typeof header === 'string' ? (
+              <h3 className="jarvis-card__title">{header}</h3>
+            ) : (
+              header
+            )}
+          </div>
+        )}
+        
+        <div className="jarvis-card__body">
+          {children}
         </div>
-      )}
-      
-      {/* Corner HUD brackets */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400/50" />
-      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400/50" />
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400/50" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400/50" />
-      
-      {/* Content */}
-      <div className="relative z-10">
-        {children}
+        
+        {footer && (
+          <div className="jarvis-card__footer">
+            {footer}
+          </div>
+        )}
       </div>
-    </motion.div>
+      
+      {/* Effet de scanline */}
+      <div className="jarvis-card__scanline" />
+    </div>
   );
-}
+};
+
+JarvisCard.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['default', 'elevated', 'outlined', 'flat']),
+  glow: PropTypes.oneOf(['cyan', 'magenta', 'none']),
+  hover: PropTypes.bool,
+  padding: PropTypes.oneOf(['none', 'sm', 'md', 'lg', 'xl']),
+  header: PropTypes.node,
+  footer: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object,
+};
+
+export default JarvisCard;
