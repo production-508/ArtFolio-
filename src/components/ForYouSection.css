@@ -1,0 +1,482 @@
+/* ========================================
+   FOR YOU SECTION - Styles
+   ======================================== */
+
+.foryou-section {
+  padding: 80px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(248,248,250,0.5) 100%);
+}
+
+.foryou-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.foryou-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.foryou-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foryou-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+
+.foryou-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.foryou-subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.foryou-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.foryou-nav-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #1a1a2e;
+  transition: all 0.2s ease;
+}
+
+.foryou-nav-btn:hover:not(.disabled) {
+  background: #1a1a2e;
+  color: white;
+  border-color: #1a1a2e;
+  transform: scale(1.05);
+}
+
+.foryou-nav-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Carousel principal */
+.foryou-carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 24px;
+  margin: 0 -4px;
+}
+
+.foryou-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.foryou-carousel::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.foryou-carousel::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.foryou-carousel::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Carte d'œuvre */
+.foryou-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: foryouCardReveal 0.6s ease forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes foryouCardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.foryou-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.foryou-card-image {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.foryou-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.foryou-card:hover .foryou-card-image img {
+  transform: scale(1.08);
+}
+
+.foryou-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.foryou-card:hover .foryou-card-overlay {
+  opacity: 1;
+}
+
+.foryou-card-cta {
+  background: white;
+  color: #1a1a2e;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+.foryou-card:hover .foryou-card-cta {
+  transform: translateY(0);
+}
+
+.foryou-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #059669;
+}
+
+.foryou-card-reason {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(102, 126, 234, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+}
+
+.foryou-card-info {
+  padding: 16px;
+}
+
+.foryou-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.foryou-card-artist {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 12px;
+}
+
+.foryou-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.foryou-card-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.foryou-card-tag {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  border-radius: 12px;
+  color: #64748b;
+}
+
+/* Skeleton loading */
+.foryou-card-skeleton {
+  flex: 0 0 280px;
+  background: #f1f5f9;
+  border-radius: 16px;
+  aspect-ratio: 4/5;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* Collections thématiques */
+.foryou-collections {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.foryou-collection {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: foryouCardReveal 0.6s ease forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.foryou-collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.foryou-collection-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.foryou-collection-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.foryou-collection-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.foryou-collection-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.foryou-collection-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 16px;
+  margin: 0 -4px;
+}
+
+.foryou-collection-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.foryou-collection-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.foryou-collection-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.foryou-collection-scroll .foryou-card {
+  flex: 0 0 240px;
+}
+
+/* Erreur */
+.foryou-error {
+  text-align: center;
+  padding: 48px;
+  color: #ef4444;
+  background: #fef2f2;
+  border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .foryou-section {
+    padding: 48px 0;
+  }
+
+  .foryou-title {
+    font-size: 1.5rem;
+  }
+
+  .foryou-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .foryou-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .foryou-nav {
+    align-self: flex-end;
+  }
+
+  .foryou-card,
+  .foryou-card-skeleton {
+    flex: 0 0 220px;
+  }
+
+  .foryou-collection-title {
+    font-size: 1.25rem;
+  }
+
+  .foryou-collection-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .foryou-collection-nav {
+    align-self: flex-end;
+  }
+
+  .foryou-collection-scroll .foryou-card {
+    flex: 0 0 200px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .foryou-section {
+    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.5) 100%);
+  }
+
+  .foryou-title {
+    color: #f8fafc;
+  }
+
+  .foryou-subtitle,
+  .foryou-card-artist,
+  .foryou-collection-subtitle {
+    color: #94a3b8;
+  }
+
+  .foryou-card {
+    background: #1e293b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .foryou-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .foryou-card-title,
+  .foryou-card-price,
+  .foryou-collection-title {
+    color: #f8fafc;
+  }
+
+  .foryou-card-tag {
+    background: #334155;
+    color: #94a3b8;
+  }
+
+  .foryou-nav-btn {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  .foryou-nav-btn:hover:not(.disabled) {
+    background: #f8fafc;
+    color: #1a1a2e;
+    border-color: #f8fafc;
+  }
+
+  .foryou-card-skeleton {
+    background: #334155;
+  }
+
+  .foryou-carousel::-webkit-scrollbar-track,
+  .foryou-collection-scroll::-webkit-scrollbar-track {
+    background: #334155;
+  }
+
+  .foryou-carousel::-webkit-scrollbar-thumb,
+  .foryou-collection-scroll::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+}

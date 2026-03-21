@@ -14,3 +14,4 @@ export { InstitutionalNav } from './InstitutionalNav';
 export { InstitutionalHero } from './InstitutionalHero';
 export { useToast, ToastContainer } from './Toast';
 export { default as InstitutionalGallery } from './InstitutionalGallery';
+export { default as JarvisAI } from './JarvisAI';
