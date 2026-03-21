@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { InstitutionalHero } from '../components/InstitutionalHero';
 import { InstitutionalGallery } from '../components/InstitutionalGallery';
+import SmartSearchBar from '../components/SmartSearchBar';
 
 // Données d'œuvres pour le hero
 const HERO_ARTWORKS = [
@@ -37,6 +38,35 @@ export default function InstitutionalHomePage() {
     <div className="min-h-screen bg-black">
       {/* Hero immersif fullscreen */}
       <InstitutionalHero artworks={HERO_ARTWORKS} />
+      
+      {/* Smart Search Section */}
+      <section className="py-16 px-6 md:px-12 bg-black border-b border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <h2 
+              className="text-white/80 text-xl mb-2"
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+            >
+              Découvrez votre prochaine œuvre
+            </h2>
+            <p 
+              className="text-white/40 text-sm"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Recherchez par style, couleur, artiste ou téléchargez une image
+            </p>
+          </motion.div>
+          
+          <SmartSearchBar 
+            onSearch={(params) => console.log('Search:', params)}
+          />
+        </div>
+      </section>
       
       {/* Gallery section */}
       <InstitutionalGallery />
