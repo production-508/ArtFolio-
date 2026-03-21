@@ -353,3 +353,94 @@ textarea.form-input { resize: vertical; min-height: 120px; }
   }
   html { scroll-behavior: auto; }
 }
+
+/* ============================================================
+   Blue Cinis Inspired - Glassmorphism Utilities
+   ============================================================ */
+
+/* Glass Panel - Standard */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass Panel - Dark variant */
+.glass-panel-dark {
+  background: rgba(5, 5, 5, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Glass Panel - Strong */
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass Panel - Subtle */
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Glass Button */
+.glass-button {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Text Glow */
+.text-glow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Blue Cinis Card Style */
+.card-bluecinis {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 25, 44, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 32px 90px rgba(2, 6, 23, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card-bluecinis:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 100px rgba(2, 6, 23, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mask linear fade for carousels */
+.mask-linear-fade {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
