@@ -11,6 +11,7 @@ import {
   Sparkles,
   Check,
   X,
+  Palette,
 } from 'lucide-react';
 import { ColorSwatch } from './ColorSwatch';
 import { ConfidenceBar } from './ConfidenceBar';
@@ -35,7 +36,8 @@ import { StyleCard } from './StyleCard';
 
 /**
  * @typedef {Object} ArtworkAnalyzerProps
- * @property {string} artworkId - ID de l'œuvre à analyser
+ * @property {string} [artworkId] - ID de l'œuvre à analyser (optionnel si imageBase64 fourni)
+ * @property {string} [imageBase64] - Image en base64 pour analyse directe
  * @property {string} [apiBaseUrl] - URL de base de l'API
  * @property {() => void} [onAnalysisComplete] - Callback quand l'analyse est terminée
  * @property {() => void} [onUploadRequest] - Callback pour demander un upload
@@ -49,6 +51,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || '';
  */
 export function ArtworkAnalyzer({
   artworkId,
+  imageBase64,
   apiBaseUrl = API_BASE_URL,
   onAnalysisComplete,
   onUploadRequest,
@@ -100,6 +103,57 @@ export function ArtworkAnalyzer({
     setError(null);
 
     try {
+      // Si imageBase64 fourni, utiliser l'API Vision directe
+      if (imageBase64) {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${apiBaseUrl}/api/ai/analyze-artwork`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          },
+          body: JSON.stringify({ 
+            imageBase64,
+            artworkId 
+          }),
+        });
+
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.error || 'Erreur lors de l\'analyse de l\'œuvre');
+        }
+
+        const data = await response.json();
+        
+        // Adapter le format de réponse OpenAI au format interne
+        const adaptedAnalysis = {
+          palette: data.colorPalette || [],
+          tags: data.tags || [],
+          style: data.style || 'Non détecté',
+          priceEstimate: {
+            low: data.priceEstimate?.min || 0,
+            high: data.priceEstimate?.max || 0,
+            confidence: data.priceEstimate?.confidence === 'high' ? 0.9 : 
+                       data.priceEstimate?.confidence === 'medium' ? 0.6 : 0.3,
+          },
+          seoDescription: data.description || '',
+          confidence: data.priceEstimate?.confidence === 'high' ? 0.85 : 
+                      data.priceEstimate?.confidence === 'medium' ? 0.6 : 0.4,
+          ...data // Conserver tout le reste
+        };
+
+        setAnalysis(adaptedAnalysis);
+        setSeoText(data.description || '');
+        setStatus('success');
+        onAnalysisComplete?.(adaptedAnalysis);
+        return;
+      }
+
+      // Sinon, utiliser l'ancien flux avec artworkId
+      if (!artworkId) {
+        throw new Error('Aucune image ou ID d\'œuvre fourni');
+      }
+
       const response = await fetch(`${apiBaseUrl}/api/artworks/${artworkId}/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

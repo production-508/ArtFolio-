@@ -165,4 +165,125 @@ Réponds UNIQUEMENT en JSON avec la structure exacte suivante :
   }
 });
 
+// POST /api/ai/analyze-artwork - Analyse d'œuvre d'art avec Vision
+router.post('/analyze-artwork', requireAuth, async (req, res) => {
+  const { imageBase64, artworkId } = req.body;
+  
+  if (!imageBase64) {
+    return res.status(400).json({ error: 'imageBase64 est requis' });
+  }
+
+  try {
+    const user = await dbGet('SELECT * FROM users WHERE id = ?', [req.user.id]);
+    if (!user) return res.status(403).json({ error: 'Utilisateur non trouvé' });
+
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+    // Mode démo si pas de clé OpenAI
+    if (!OPENAI_API_KEY || OPENAI_API_KEY === 'your_openai_api_key_here') {
+      const demoAnalysis = generateDemoAnalysis();
+      return res.json({ ...demoAnalysis, mode: 'demo' });
+    }
+
+    // Appel OpenAI Vision
+    const OpenAI = require('openai');
+    const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+
+    const prompt = `Tu es un expert en art et marché de l'art. Analyse cette œuvre d'art en détail.
+
+Réponds UNIQUEMENT en JSON avec cette structure exacte:
+{
+  "title": "Titre créatif suggéré (max 50 caractères)",
+  "description": "Description SEO (150-160 caractères)",
+  "longDescription": "Description détaillée artistique (3-4 phrases)",
+  "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
+  "style": "Style artistique détecté (ex: Impressionnisme, Street Art, Abstrait...)",
+  "medium": "Technique/medium (ex: Huile sur toile, Acrylique, Photographie...)",
+  "colorPalette": ["#HEX1", "#HEX2", "#HEX3", "#HEX4", "#HEX5"],
+  "priceEstimate": {
+    "min": nombre_minimum_en_EUR,
+    "max": nombre_maximum_en_EUR,
+    "currency": "EUR",
+    "confidence": "low|medium|high"
+  },
+  "seo": {
+    "title": "Titre SEO (max 60 caractères)",
+    "metaDescription": "Meta description (max 160 caractères)",
+    "keywords": ["mot-clé1", "mot-clé2", "mot-clé3"]
+  }
+}
+
+Instructions:
+- Pour le prix: estime une fourchette réaliste pour un artiste contemporain émergent (500-5000€ typiquement)
+- La confiance du prix dépend de la clarté de l'œuvre et de la reconnaissance du style
+- Les couleurs: extrais les 5 couleurs dominantes en codes HEX
+- Les tags: inclue style, medium, sujet, mood
+- Tout en français`;
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: prompt },
+            {
+              type: 'image_url',
+              image_url: {
+                url: imageBase64.startsWith('data:') ? imageBase64 : `data:image/jpeg;base64,${imageBase64}`
+              }
+            }
+          ]
+        }
+      ],
+      response_format: { type: 'json_object' },
+      max_tokens: 1500,
+      temperature: 0.7,
+    });
+
+    const tokensUsed = completion.usage?.total_tokens || 200;
+    const analysis = JSON.parse(completion.choices[0].message.content);
+
+    // Sauvegarder dans la DB si artworkId fourni
+    if (artworkId) {
+      await dbRun(
+        `UPDATE artworks SET 
+          ai_analysis = ?, 
+          ai_analyzed_at = datetime('now'),
+          ai_tokens_used = COALESCE(ai_tokens_used, 0) + ?
+        WHERE id = ? AND artist_id = ?`,
+        [JSON.stringify(analysis), tokensUsed, artworkId, req.user.id]
+      );
+    }
+
+    res.json({ ...analysis, tokens_used: tokensUsed, mode: 'openai' });
+  } catch (err) {
+    console.error('Erreur analyse Vision:', err.message);
+    res.status(500).json({ error: 'Erreur lors de\'analyse de l\'œuvre', detail: err.message });
+  }
+});
+
+function generateDemoAnalysis() {
+  return {
+    title: "Harmonie Abstraite",
+    description: "Œuvre abstraite contemporaine aux tons chauds et froids contrastés. Composition dynamique évoquant le mouvement et l'énergie.",
+    longDescription: "Cette composition abstraite explore les interactions entre formes géométriques et flux organiques. La palette audacieuse crée une tension visuelle captivante, tandis que les superpositions de couches suggèrent une profondeur narrative.",
+    tags: ["abstrait", "contemporain", "géométrique", "coloré", "dynamique"],
+    style: "Abstrait Géométrique",
+    medium: "Acrylique sur toile",
+    colorPalette: ["#FF6B35", "#004E89", "#1A1A2E", "#E8D5C4", "#C73E1D"],
+    priceEstimate: {
+      min: 1200,
+      max: 2800,
+      currency: "EUR",
+      confidence: "medium"
+    },
+    seo: {
+      title: "Harmonie Abstraite - Œuvre Originale | ArtFolio",
+      metaDescription: "Découvrez cette œuvre abstraite contemporaine. Acrylique sur toile, composition dynamique aux couleurs vibrantes. Art original disponible.",
+      keywords: ["art abstrait", "peinture contemporaine", "œuvre originale", "acrylique"]
+    }
+  };
+}
+
 module.exports = router;

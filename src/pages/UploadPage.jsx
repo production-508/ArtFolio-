@@ -219,6 +219,7 @@ export default function UploadPage() {
                 <div className="lg:col-span-3">
                   <ArtworkAnalyzer
                     artworkId={artworkId}
+                    imageBase64={uploadedImage}
                     onAnalysisComplete={() => console.log('Analyse terminée !')}
                   />
                 </div>
