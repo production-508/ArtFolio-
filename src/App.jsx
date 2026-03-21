@@ -4,7 +4,7 @@ import { Navigation } from './components/Navigation';
 import { CustomCursor } from './components/CustomCursor';
 import { GradientOrbs } from './components/GradientOrbs';
 import HomePage from './pages/HomePage';
-import UploadPage from './pages/UploadPage';
+import AnalyzePage from './pages/AnalyzePage';
 import GalleryPage from './pages/GalleryPage';
 import ArtistDashboard from './pages/ArtistDashboard';
 import './index.css';
@@ -31,14 +31,24 @@ function AppContent() {
       {/* Navigation */}
       <Navigation />
 
-      {/* Contenu principal avec padding pour la bottom nav mobile */}
+      {/* Contenu principal */}
       <main className="md:pb-0">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
+            {/* Home = Galerie publique */}
             <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
-            <Route path="/upload" element={<PageTransition><UploadPage /></PageTransition>} />
-            <Route path="/gallery" element={<PageTransition><GalleryPage /></PageTransition>} />
+            
+            {/* Outil d'analyse pour artistes */}
+            <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
+            
+            {/* Ancienne route de recherche */}
+            <Route path="/search" element={<PageTransition><GalleryPage /></PageTransition>} />
+            
+            {/* Dashboard Artiste */}
             <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
+            
+            {/* Fallback */}
+            <Route path="*" element={<PageTransition><HomePage /></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </main>
@@ -52,7 +62,7 @@ function PageTransition({ children }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {children}
     </motion.div>
