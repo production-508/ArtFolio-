@@ -19,8 +19,10 @@ import RoomViewPage from './pages/RoomViewPage';
 import FavoritesPage from './pages/FavoritesPage';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
+import JarvisDashboardPage from './pages/JarvisDashboardPage';
 import './index.css';
 import './styles/institutional-theme.css';
+import './styles/jarvis-theme.css';
 
 function App() {
   return <AppContent />;
@@ -86,6 +88,9 @@ function AppContent() {
                 
                 {/* Dashboard Artiste */}
                 <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
+                
+                {/* Dashboard JARVIS */}
+                <Route path="/jarvis" element={<PageTransition><JarvisDashboardPage /></PageTransition>} />
                 
                 {/* Visualisation murale */}
                 <Route path="/visualiser/:artworkId" element={<PageTransition><RoomViewPage /></PageTransition>} />
