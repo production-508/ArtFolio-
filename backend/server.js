@@ -1,4 +1,4 @@
-// Serveur Express ultra-minimal pour Railway
+// Serveur Express pour Railway - Version debug static files
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -6,13 +6,22 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-console.log('🚀 Starting server on port', PORT);
+console.log('🚀 Starting server...');
+console.log('📡 process.env.PORT =', process.env.PORT);
+console.log('📡 Final PORT =', PORT);
+console.log('📁 __dirname =', __dirname);
 
-// Healthcheck immédiat
+// Middleware de logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.path}`);
+  next();
+});
+
+// Healthcheck
 app.get('/health', (req, res) => res.send('OK'));
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
-// Middleware basique (SANS helmet pour debug)
+// Middleware
 app.use(express.json());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -21,10 +30,41 @@ app.use((req, res, next) => {
   next();
 });
 
-// Test route
-app.get('/test', (req, res) => res.json({ msg: 'Server is running', time: Date.now() }));
+// Debug: voir où on cherche les fichiers
+const distPath = path.join(__dirname, '..', 'dist');
+const absoluteDistPath = path.resolve(distPath);
+console.log('📂 Looking for dist at:', distPath);
+console.log('📂 Absolute path:', absoluteDistPath);
+console.log('📂 Exists:', fs.existsSync(distPath));
 
-// Routes API (chargées une par une avec try-catch)
+if (fs.existsSync(distPath)) {
+  const files = fs.readdirSync(distPath);
+  console.log('📂 Dist contents:', files);
+  
+  if (fs.existsSync(path.join(distPath, 'assets'))) {
+    const assets = fs.readdirSync(path.join(distPath, 'assets'));
+    console.log('📂 Assets:', assets);
+  }
+  
+  // Servir les assets avec bon content-type
+  app.use('/assets', express.static(path.join(distPath, 'assets')));
+  
+  // Servir le reste (racine)
+  app.use(express.static(distPath, {
+    setHeaders: (res, path) => {
+      if (path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      }
+      if (path.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+      }
+    }
+  }));
+  
+  console.log('✅ Static files configured');
+}
+
+// API Routes
 const routes = [
   ['/api/auth', './routes/auth'],
   ['/api/artworks', './routes/artworks'],
@@ -35,66 +75,35 @@ const routes = [
   ['/api/chat', './routes/chat'],
 ];
 
-routes.forEach(([path, mod]) => {
+routes.forEach(([routePath, mod]) => {
   try {
-    app.use(path, require(mod));
-    console.log('✅ Route:', path);
+    app.use(routePath, require(mod));
+    console.log('✅ API:', routePath);
   } catch (e) {
-    console.log('⚠️ Route failed:', path, e.message);
-    app.use(path, (req, res) => res.status(503).json({ error: 'Service unavailable' }));
+    console.log('⚠️ API failed:', routePath, e.message.split('\n')[0]);
   }
 });
 
-// Stripe (optionnel)
-try {
-  app.use('/api/stripe', require('./routes/stripe'));
-  console.log('✅ Stripe route');
-} catch (e) {
-  console.log('⚠️ Stripe not available');
-}
-
-// Frontend static
-try {
-  const distPath = path.join(__dirname, '..', 'dist');
-  if (fs.existsSync(distPath)) {
-    app.use(express.static(distPath));
-    console.log('✅ Static files from:', distPath);
-    
-    // SPA fallback
-    app.get('*', (req, res) => {
-      if (req.path.startsWith('/api')) {
-        return res.status(404).json({ error: 'Not found' });
-      }
-      const indexPath = path.join(distPath, 'index.html');
-      if (fs.existsSync(indexPath)) {
-        res.sendFile(indexPath);
-      } else {
-        res.send('ArtFolio Server - Frontend not built');
-      }
-    });
+// SPA fallback - doit être DERNIER
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'API not found' });
+  }
+  const indexPath = path.join(distPath, 'index.html');
+  console.log('🔄 Serving index.html for:', req.path);
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
   } else {
-    console.log('⚠️ No dist folder');
-    app.get('*', (req, res) => {
-      if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Not found' });
-      res.send('ArtFolio API Server is running');
-    });
+    res.status(200).send('ArtFolio API Server - No frontend built');
   }
-} catch (e) {
-  console.error('Static files error:', e);
-}
-
-// Error handler
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ error: 'Server error' });
 });
 
-// Start server
+// Start
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log('✅ Server listening on port', PORT);
 });
 
-// DB init (background)
+// DB init
 setTimeout(() => {
   try {
     const { initDb } = require('./db/init');
