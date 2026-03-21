@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useAuth } from './contexts/AuthContext';
 import InstitutionalNav from './components/InstitutionalNav';
 import LandingPage from './pages/LandingPage';
 import InstitutionalHomePage from './pages/InstitutionalHomePage';
@@ -7,6 +8,7 @@ import HomePage from './pages/HomePage';
 import AnalyzePage from './pages/AnalyzePage';
 import ArtistDashboard from './pages/ArtistDashboard';
 import ArtistProfilePage from './pages/ArtistProfilePage';
+import UserProfile from './pages/UserProfile';
 import './index.css';
 import './styles/institutional-theme.css';
 
@@ -16,6 +18,16 @@ function App() {
 
 function AppContent() {
   const location = useLocation();
+  const { loading } = useAuth();
+
+  // Afficher un loader pendant l'initialisation auth
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="w-8 h-8 border border-white/20 border-t-white rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 selection:text-white">
@@ -35,8 +47,11 @@ function AppContent() {
             {/* Galerie Blue Cinis (backup) */}
             <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
             
-            {/* Profil Artiste */}
+            {/* Profil Artiste Public */}
             <Route path="/artist/:id" element={<PageTransition><ArtistProfilePage /></PageTransition>} />
+            
+            {/* Profil Utilisateur Connecté */}
+            <Route path="/profile" element={<PageTransition><UserProfile /></PageTransition>} />
             
             {/* Outil d'analyse pour artistes */}
             <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
