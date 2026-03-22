@@ -1,0 +1,256 @@
+{
+  "version": "1.0",
+  "generated": "2026-03-22",
+  "artists_count": 15,
+  "artworks_count": 52,
+  "categories": ["Abstract", "Figurative", "Photography", "Digital", "Contemporary"],
+  
+  "artists": [
+    {
+      "id": "artist_001",
+      "name": "Élise Moreau",
+      "slug": "elise-moreau",
+      "bio": "Élise Moreau explore la frontière entre le visible et l'invisible. Basée à Lyon, son travail abstrait puise dans les paysages industriels de sa région natale. Ses toiles monumentales interrogent la mémoire collective et les traces que nous laissons dans l'espace urbain.",
+      "story": "Née en 1987 dans une famille d'ouvriers, Élise a grandi au milieu des usines désaffectées du Rhône. Cette esthétique brute, entre décrépitude et beauté tragique, irrigue tout son œuvre. Diplômée des Beaux-Arts de Paris en 2012, elle expose régulièrement en Europe et aux États-Unis.",
+      "location": "Lyon, France",
+      "specialty": "Peinture abstraite",
+      "style_tags": ["Abstrait", "Industriel", "Monumental", "Texturé"],
+      "color_palette": ["#2C2C2C", "#8B4513", "#D4A574", "#4A4A4A", "#E8E8E8"],
+      "image": "https://placehold.co/400x400/2C2C2C/D4A574?text=EM",
+      "artworks": [
+        {
+          "id": "art_001_01",
+          "title": "Mémoires d'Acier",
+          "year": 2023,
+          "medium": "Acrylique et rouille sur toile",
+          "dimensions": "200 x 150 cm",
+          "price": 4500,
+          "description": "Hommage aux hauts-fourneaux de la vallée de la Fensch. La rouille véritable, appliquée en couches successives, crée une patine vivante qui continue d'évoluer.",
+          "image": "https://placehold.co/800x1000/2C2C2C/D4A574?text=M%C3%A9moires+d'Acier",
+          "status": "available"
+        },
+        {
+          "id": "art_001_02",
+          "title": "Silence de Gris",
+          "year": 2024,
+          "medium": "Huile et bitume sur toile",
+          "dimensions": "180 x 120 cm",
+          "price": 3800,
+          "description": "Une méditation sur le vide industriel. Les tons gris-bleu évoquent l'aube brumeuse au-dessus des usines endormies.",
+          "image": "https://placehold.co/800x1000/4A4A4A/E8E8E8?text=Silence+de+Gris",
+          "status": "available"
+        },
+        {
+          "id": "art_001_03",
+          "title": "Structure IX",
+          "year": 2024,
+          "medium": "Technique mixte sur bois",
+          "dimensions": "100 x 100 cm",
+          "price": 2200,
+          "description": "Série Structures. L'artiste utilise des matériaux de récupération issus de chantiers de démolition.",
+          "image": "https://placehold.co/800x800/8B4513/D4A574?text=Structure+IX",
+          "status": "sold"
+        }
+      ]
+    },
+    {
+      "id": "artist_002",
+      "name": "Marcus Chen",
+      "slug": "marcus-chen",
+      "bio": "Marcus Chen fusionne esthétique numérique et traditions asiatiques. Son art digital, imprimé sur aluminium brossé, crée une tension fascinante entre le virtuel et le tangible.",
+      "story": "Né à Singapour en 1990, Marcus a étudié le design interactif à la RISD avant de s'installer à Paris. Son travail interroge la place de l'humain dans un monde de plus en plus médiatisé par les écrans.",
+      "location": "Paris, France",
+      "specialty": "Art numérique",
+      "style_tags": ["Digital", "Cyberpunk", "Minimaliste", "Néon"],
+      "color_palette": ["#00F0FF", "#FF006E", "#1A1A2E", "#16213E", "#E94560"],
+      "image": "https://placehold.co/400x400/1A1A2E/00F0FF?text=MC",
+      "artworks": [
+        {
+          "id": "art_002_01",
+          "title": "Neon Dreams #42",
+          "year": 2024,
+          "medium": "Print sur aluminium, LED intégrées",
+          "dimensions": "120 x 80 cm",
+          "price": 6500,
+          "description": "Série Neon Dreams. L'œuvre change d'apparence selon l'éclairage ambiant, passant du minimalisme jour au néon flamboyant la nuit.",
+          "image": "https://placehold.co/800x533/1A1A2E/00F0FF?text=Neon+Dreams+%2342",
+          "status": "available"
+        },
+        {
+          "id": "art_002_02",
+          "title": "Data Portrait Alpha",
+          "year": 2023,
+          "medium": "Print sur dibond",
+          "dimensions": "100 x 100 cm",
+          "price": 3200,
+          "description": "Portrait généré à partir des données de navigation d'un utilisateur fictif. Une réflexion sur la vie privée à l'ère du big data.",
+          "image": "https://placehold.co/800x800/16213E/E94560?text=Data+Portrait",
+          "status": "available"
+        },
+        {
+          "id": "art_002_03",
+          "title": "Glitch Garden",
+          "year": 2024,
+          "medium": "NFT + Print physique",
+          "dimensions": "150 x 100 cm",
+          "price": 4800,
+          "description": "Nature traditionnelle chinoise réinterprétée à travers des algorithmes de glitch. Double authentification blockchain.",
+          "image": "https://placehold.co/800x533/1A1A2E/FF006E?text=Glitch+Garden",
+          "status": "available"
+        },
+        {
+          "id": "art_002_04",
+          "title": "Void Signal",
+          "year": 2023,
+          "medium": "Installation lumineuse",
+          "dimensions": "200 x 150 x 30 cm",
+          "price": 12000,
+          "description": "Néon froid sur fond d'aluminium noir. L'œuvre pulse doucement comme un signal perdu dans l'espace.",
+          "image": "https://placehold.co/800x600/000000/00F0FF?text=Void+Signal",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_003",
+      "name": "Sofia Andersson",
+      "slug": "sofia-andersson",
+      "bio": "Sofia Andersson capture l'essence éphémère de la nature nordique. Sa photographie minimaliste, souvent en noir et blanc, révèle la beauté cachée des paysages scandinaves.",
+      "story": "Photographe suédoise installée à Marseille depuis 2018, Sofia a développé un regard unique sur la lumière. Ancienne ingénieure, elle a quitté son métier pour parcourir les archipels de sa région natale à la recherche de l'instant parfait.",
+      "location": "Marseille, France",
+      "specialty": "Photographie",
+      "style_tags": ["Photographie", "Minimaliste", "Nature", "Noir et blanc"],
+      "color_palette": ["#1A1A1A", "#4A4A4A", "#9A9A9A", "#D4D4D4", "#F5F5F5"],
+      "image": "https://placehold.co/400x400/1A1A1A/D4D4D4?text=SA",
+      "artworks": [
+        {
+          "id": "art_003_01",
+          "title": "Brume #7",
+          "year": 2023,
+          "medium": "Tirage argentique sur baryté",
+          "dimensions": "100 x 150 cm",
+          "price": 2800,
+          "description": "Série Brume. Lever de soleil sur les îles Lofoten. L'attente de trois jours pour capturer cette lumière diffuse.",
+          "image": "https://placehold.co/1000x667/4A4A4A/9A9A9A?text=Brume+%237",
+          "status": "available"
+        },
+        {
+          "id": "art_003_02",
+          "title": "Silence Arctique",
+          "year": 2024,
+          "medium": "Tirage pigmentaire",
+          "dimensions": "80 x 120 cm",
+          "price": 1800,
+          "description": "Calanques de Piana en hiver. La neige réduit le paysage à ses lignes essentielles.",
+          "image": "https://placehold.co/800x1200/1A1A1A/F5F5F5?text=Silence+Arctique",
+          "status": "available"
+        },
+        {
+          "id": "art_003_03",
+          "title": "Eau et Pierre",
+          "year": 2023,
+          "medium": "Tirage argentique",
+          "dimensions": "60 x 90 cm",
+          "price": 1200,
+          "description": "Longue exposition dans les calanques marseillaises. L'eau devient soie, la pierre devient ombre.",
+          "image": "https://placehold.co/600x900/4A4A4A/D4D4D4?text=Eau+et+Pierre",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_004",
+      "name": "Antoine Dubois",
+      "slug": "antoine-dubois",
+      "bio": "Antoine Dubois perpétue la tradition du portrait contemporain avec une touche expressionniste. Ses œuvres grand format déstabilisent et captivent par leur intensité psychologique.",
+      "story": "Formé à l'Académie de la Grande Chaumière, Antoine a peint des portraits de personnalités politiques et culturelles avant de se tourner vers des sujets anonymes. Selon lui, chaque visage raconte une histoire universelle.",
+      "location": "Bruxelles, Belgique",
+      "specialty": "Portrait expressionniste",
+      "style_tags": ["Portrait", "Expressionnisme", "Figuratif", "Intense"],
+      "color_palette": ["#8B0000", "#D2691E", "#1A1A1A", "#F4E4C1", "#CD853F"],
+      "image": "https://placehold.co/400x400/8B0000/F4E4C1?text=AD",
+      "artworks": [
+        {
+          "id": "art_004_01",
+          "title": "Le Regard #12",
+          "year": 2024,
+          "medium": "Huile sur toile",
+          "dimensions": "200 x 160 cm",
+          "price": 15000,
+          "description": "Portrait d'un inconnu croisé dans le métro bruxellois. Antoine l'a approché et a passé trois heures à discuter avant de le peindre.",
+          "image": "https://placehold.co/800x1000/8B0000/F4E4C1?text=Le+Regard+%2312",
+          "status": "available"
+        },
+        {
+          "id": "art_004_02",
+          "title": "Mère",
+          "year": 2023,
+          "medium": "Huile et collage sur toile",
+          "dimensions": "180 x 140 cm",
+          "price": 12000,
+          "description": "Portrait de sa mère, réalisé quelques mois avant son décès. Les collages incorporent des documents de famille.",
+          "image": "https://placehold.co/800x622/D2691E/F4E4C1?text=M%C3%A8re",
+          "status": "sold"
+        },
+        {
+          "id": "art_004_03",
+          "title": "Triptyque des Oublieux",
+          "year": 2024,
+          "medium": "Huile sur trois toiles",
+          "dimensions": "150 x 360 cm (total)",
+          "price": 25000,
+          "description": "Trois portraits de patients atteints d'Alzheimer. Une œuvre commanditée par un centre de recherche neurologique.",
+          "image": "https://placehold.co/1200x500/1A1A1A/CD853F?text=Triptyque+des+Oublieux",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_005",
+      "name": "Yuki Tanaka",
+      "slug": "yuki-tanaka",
+      "bio": "Yuki Tanaka explore la céramique contemporaine à travers des formes organiques inspirées de la nature. Ses sculptures murales semblent vivantes, capturant le mouvement dans la matière immobile.",
+      "story": "Céramiste japonaise formée à Kyoto, Yuki a apporté sa sensibilité wabi-sabi à la scène parisienne. Ses pièces, souvent monumentales, habitent l'espace avec une présence silencieuse mais puissante.",
+      "location": "Paris, France",
+      "specialty": "Céramique contemporaine",
+      "style_tags": ["Céramique", "Organique", "Minimaliste", "Sculptural"],
+      "color_palette": ["#F5F5DC", "#D4C4B0", "#8B7355", "#4A4A4A", "#2F4F4F"],
+      "image": "https://placehold.co/400x400/F5F5DC/8B7355?text=YT",
+      "artworks": [
+        {
+          "id": "art_005_01",
+          "title": "Vagues de Terre I",
+          "year": 2024,
+          "medium": "Grès émaillé, installation murale",
+          "dimensions": "200 x 300 x 15 cm",
+          "price": 8500,
+          "description": "Série Vagues de Terre. Chaque élément est modelé à la main puis assemblé en composition unique. Inspiré des vagues de la baie de Sagami.",
+          "image": "https://placehold.co/1000x667/F5F5DC/D4C4B0?text=Vagues+de+Terre+I",
+          "status": "available"
+        },
+        {
+          "id": "art_005_02",
+          "title": "Mousse Noire",
+          "year": 2023,
+          "medium": "Raku, technique traditionnelle japonaise",
+          "dimensions": "40 x 40 x 25 cm",
+          "price": 2200,
+          "description": "Pièce unique en raku. Les fissures et les variations de couleur sont intentionnelles, célébrant l'imperfection.",
+          "image": "https://placehold.co/800x800/2F4F4F/8B7355?text=Mousse+Noire",
+          "status": "available"
+        },
+        {
+          "id": "art_005_03",
+          "title": "Érosion II",
+          "year": 2024,
+          "medium": "Porcelaine et oxydes",
+          "dimensions": "80 x 120 x 30 cm",
+          "price": 4800,
+          "description": "Surface qui évoque la pierre érodée par l'eau. La porcelaine fine contraste avec l'apparence rugueuse.",
+          "image": "https://placehold.co/800x1200/D4C4B0/8B7355?text=%C3%89rosion+II",
+          "status": "available"
+        }
+      ]
+    }
+  ]
+}

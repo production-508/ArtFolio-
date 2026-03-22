@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://artfolio-production-ca66.up.railway.app/sitemap.xml
+
+# Pages privées à ne pas indexer
+Disallow: /checkout
+Disallow: /profile
+Disallow: /dashboard
+Disallow: /jarvis

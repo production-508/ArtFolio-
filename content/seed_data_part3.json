@@ -1,0 +1,184 @@
+{
+  "artists": [
+    {
+      "id": "artist_011",
+      "name": "Maya Cohen",
+      "slug": "maya-cohen",
+      "bio": "Maya Cohen sculpte le verre avec une maîtrise technique exceptionnelle. Ses œuvres monumentales jouent avec la transparence et la couleur, transformant la lumière en matière sculpturale.",
+      "story": "Verrière formée à Murano puis aux Arts Décoratifs de Paris, Maya a développé une technique unique mêlant soufflage et pâte de verre. Ses installations habitent l'espace avec une présence éthérée.",
+      "location": "Biarritz, France",
+      "specialty": "Sculpture en verre",
+      "style_tags": ["Verre", "Sculpture", "Lumineux", "Contemporain"],
+      "color_palette": ["#87CEEB", "#40E0D0", "#FF6B9D", "#C9B037", "#F0F8FF"],
+      "image": "https://placehold.co/400x400/87CEEB/F0F8FF?text=MC",
+      "artworks": [
+        {
+          "id": "art_011_01",
+          "title": "Cascade de Lumière",
+          "year": 2024,
+          "medium": "Verre soufflé, LED",
+          "dimensions": "300 x 150 x 100 cm",
+          "price": 18000,
+          "description": "Installation suspendue de 200 éléments en verre. La lumière LED crée des reflets changeants tout au long de la journée.",
+          "image": "https://placehold.co/600x1200/87CEEB/40E0D0?text=Cascade+de+Lumi%C3%A8re",
+          "status": "available"
+        },
+        {
+          "id": "art_011_02",
+          "title": "Rose Éphémère",
+          "year": 2023,
+          "medium": "Pâte de verre",
+          "dimensions": "40 x 40 x 40 cm",
+          "price": 4500,
+          "description": "Fleur de verre rose qui semble figée au moment de son éclosion. Technique de la pâte de verre, pièce unique.",
+          "image": "https://placehold.co/800x800/FF6B9D/F0F8FF?text=Rose+%C3%89ph%C3%A9m%C3%A8re",
+          "status": "sold"
+        }
+      ]
+    },
+    {
+      "id": "artist_012",
+      "name": "Théo Bernard",
+      "slug": "theo-bernard",
+      "bio": "Théo Bernard explore la frontière entre peinture et sculpture. Ses œuvres en relief, construites à partir de couches successives de matériaux, créent des surfaces topographiques complexes.",
+      "story": "Ancien architecte, Théo a quitté la profession pour se consacrer à l'art abstrait. Son approche structurée de la composition se retrouve dans des œuvres où la matière est soumise à une géométrie rigoureuse.",
+      "location": "Lyon, France",
+      "specialty": "Relief abstrait",
+      "style_tags": ["Relief", "Abstrait", "Géométrique", "Architectural"],
+      "color_palette": ["#2C2C2C", "#4A4A4A", "#C9B037", "#F5F5F5", "#8B7355"],
+      "image": "https://placehold.co/400x400/2C2C2C/C9B037?text=TB",
+      "artworks": [
+        {
+          "id": "art_012_01",
+          "title": "Topographie #23",
+          "year": 2024,
+          "medium": "Béton pigmenté, métal, résine",
+          "dimensions": "150 x 200 x 15 cm",
+          "price": 7200,
+          "description": "Cartographie abstraite d'un territoire imaginaire. Les couches de béton créent des strates géologiques artificielles.",
+          "image": "https://placehold.co/800x600/2C2C2C/8B7355?text=Topographie+%2323",
+          "status": "available"
+        },
+        {
+          "id": "art_012_02",
+          "title": "Fragments Urbains",
+          "year": 2023,
+          "medium": "Technique mixte sur bois",
+          "dimensions": "100 x 100 x 8 cm",
+          "price": 3800,
+          "description": "Assemblage de matériaux urbains recyclés. Chaque fragment raconte l'histoire d'un chantier, d'une démolition.",
+          "image": "https://placehold.co/800x800/4A4A4A/C9B037?text=Fragments+Urbains",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_013",
+      "name": "Léa Martin",
+      "slug": "lea-martin",
+      "bio": "Léa Martin crée des illustrations numériques d'une grande sensibilité. Son univers poétique, peuplé de créatures oniriques et de paysages fantastiques, séduit autant les collectionneurs d'art que l'industrie de l'édition.",
+      "story": "Illustratrice autodidacte, Léa a commencé sur Instagram avant d'être repérée par des maisons d'édition. Aujourd'hui, elle partage son temps entre commandes commerciales et projets personnels exposés en galerie.",
+      "location": "Nantes, France",
+      "specialty": "Illustration numérique",
+      "style_tags": ["Illustration", "Onirique", "Fantastique", "Numérique"],
+      "color_palette": ["#FFB6C1", "#87CEEB", "#DDA0DD", "#F0E68C", "#FFA07A"],
+      "image": "https://placehold.co/400x400/DDA0DD/FFB6C1?text=LM",
+      "artworks": [
+        {
+          "id": "art_013_01",
+          "title": "La Forêt des Souvenirs",
+          "year": 2024,
+          "medium": "Print sur aluminium brossé",
+          "dimensions": "120 x 80 cm",
+          "price": 1800,
+          "description": "Forêt magique où les arbres portent les visages des ancêtres. Impression sur aluminium pour un rendu métallique unique.",
+          "image": "https://placehold.co/800x533/DDA0DD/87CEEB?text=La+For%C3%AAt+des+Souvenirs",
+          "status": "available"
+        },
+        {
+          "id": "art_013_02",
+          "title": "Mécaniques Célestes",
+          "year": 2024,
+          "medium": "Print sur dibond",
+          "dimensions": "100 x 100 cm",
+          "price": 1500,
+          "description": "Série Mécaniques Célestes. Des créatures mi-organiques mi-mécaniques évoluent dans des constellations imaginaires.",
+          "image": "https://placehold.co/800x800/87CEEB/FFA07A?text=M%C3%A9caniques+C%C3%A9lestes",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_014",
+      "name": "Daniel Okafor",
+      "slug": "daniel-okafor",
+      "bio": "Daniel Okafor mêle traditions africaines et esthétique contemporaine. Ses masques sculptés, réinterprétés en format monumental, interrogent l'identité culturelle à l'ère de la mondialisation.",
+      "story": "Né au Nigeria, Daniel a étudié l'art traditionnel Yoruba avant de s'installer à Londres puis à Paris. Son travail dialogue entre mémoire ancestrale et expression contemporaine.",
+      "location": "Paris, France",
+      "specialty": "Sculpture contemporaine",
+      "style_tags": ["Sculpture", "Africain", "Contemporain", "Identité"],
+      "color_palette": ["#8B4513", "#D2691E", "#CD853F", "#4A4A4A", "#C9B037"],
+      "image": "https://placehold.co/400x400/8B4513/C9B037?text=DO",
+      "artworks": [
+        {
+          "id": "art_014_01",
+          "title": "Ancestral Gaze III",
+          "year": 2024,
+          "medium": "Bois de iroko, métal",
+          "dimensions": "200 x 80 x 60 cm",
+          "price": 12000,
+          "description": "Masque démesuré inspiré des traditions Yoruba. Le regard semble suivre le spectateur, créant une présence intimidante.",
+          "image": "https://placehold.co/600x1500/8B4513/C9B037?text=Ancestral+Gaze+III",
+          "status": "available"
+        },
+        {
+          "id": "art_014_02",
+          "title": "Diaspora Patterns",
+          "year": 2023,
+          "medium": "Technique mixte sur bois",
+          "dimensions": "150 x 150 x 10 cm",
+          "price": 6500,
+          "description": "Relief sculpté représentant les routes de la diaspora africaine. Les motifs géométriques traditionnels se mêlent aux plans de villes contemporaines.",
+          "image": "https://placehold.co/800x800/CD853F/4A4A4A?text=Diaspora+Patterns",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_015",
+      "name": "Anna Schmidt",
+      "slug": "anna-schmidt",
+      "bio": "Anna Schmidt crée des installations cinétiques qui répondent au mouvement des spectateurs. Son travail explore la relation entre corps, espace et technologie.",
+      "story": "Artiste allemande formée à l'interaction design, Anna programme ses œuvres elle-même. Chaque installation est unique, comportant des capteurs et des moteurs qui réagissent en temps réel.",
+      "location": "Stuttgart, Allemagne",
+      "specialty": "Art cinétique",
+      "style_tags": ["Cinétique", "Interactif", "Technologie", "Installation"],
+      "color_palette": ["#C0C0C0", "#808080", "#00F0FF", "#1A1A1A", "#FFFFFF"],
+      "image": "https://placehold.co/400x400/1A1A1A/00F0FF?text=AS",
+      "artworks": [
+        {
+          "id": "art_015_01",
+          "title": "Résonance",
+          "year": 2024,
+          "medium": "Aluminium, moteurs, capteurs, Arduino",
+          "dimensions": "300 x 200 x 150 cm",
+          "price": 25000,
+          "description": "Installation murale de 50 éléments mobiles qui répondent aux mouvements des spectateurs. Chaque visiteur crée une composition unique.",
+          "image": "https://placehold.co/800x533/1A1A1A/00F0FF?text=R%C3%A9sonance",
+          "status": "available"
+        },
+        {
+          "id": "art_015_02",
+          "title": "Pendules Émotionnels",
+          "year": 2023,
+          "medium": "Acier, aimants, électronique",
+          "dimensions": "Variable (installation)",
+          "price": 15000,
+          "description": "Trois pendules suspendues qui modifient leur oscillation selon l'intensité sonore ambiante. Une méditation sur le temps et l'émotion.",
+          "image": "https://placehold.co/800x1200/C0C0C0/00F0FF?text=Pendules+%C3%89motionnels",
+          "status": "available"
+        }
+      ]
+    }
+  ]
+}

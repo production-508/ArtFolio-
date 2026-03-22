@@ -1,0 +1,239 @@
+{
+  "artists": [
+    {
+      "id": "artist_006",
+      "name": "Lucas Martínez",
+      "slug": "lucas-martinez",
+      "bio": "Lucas Martínez est un street artiste barcelonais qui transpose son art urbain sur toile. Ses créations explosent de couleurs méditerranéennes, mêlant calligraphie, figures géométriques et symboles populaires.",
+      "story": "Issu du quartier du Raval, Lucas a commencé par taguer les murs de sa ville avant d'être repéré par une galerie à 22 ans. Aujourd'hui, son travail est présent dans des collections du monde entier, mais il continue de peindre dans la rue pour garder contact avec ses racines.",
+      "location": "Barcelone, Espagne",
+      "specialty": "Street art contemporain",
+      "style_tags": ["Street art", "Coloré", "Graphique", "Urbain"],
+      "color_palette": ["#FF6B35", "#F7C59F", "#2EC4B6", "#011627", "#E71D36"],
+      "image": "https://placehold.co/400x400/011627/FF6B35?text=LM",
+      "artworks": [
+        {
+          "id": "art_006_01",
+          "title": "Barcelona Nights",
+          "year": 2024,
+          "medium": "Acrylique, spray et collage sur toile",
+          "dimensions": "200 x 200 cm",
+          "price": 6800,
+          "description": "Hommage aux nuits barcelonaises. Les néons se mélangent aux façades anciennes dans une explosion de couleurs.",
+          "image": "https://placehold.co/800x800/011627/FF6B35?text=Barcelona+Nights",
+          "status": "available"
+        },
+        {
+          "id": "art_006_02",
+          "title": "Voices of the Street",
+          "year": 2023,
+          "medium": "Technique mixte sur bois",
+          "dimensions": "120 x 180 cm",
+          "price": 4200,
+          "description": "Portraits anonymes des habitants du Raval. Chaque visage raconte une histoire de migration et d'espoir.",
+          "image": "https://placehold.co/800x1200/2EC4B6/F7C59F?text=Voices+of+the+Street",
+          "status": "available"
+        },
+        {
+          "id": "art_006_03",
+          "title": "Mediterranean Blue",
+          "year": 2024,
+          "medium": "Acrylique et résine",
+          "dimensions": "150 x 100 cm",
+          "price": 3500,
+          "description": "La Méditerranée vue du ciel. La résine crée des effets de profondeur étonnants.",
+          "image": "https://placehold.co/800x533/011627/2EC4B6?text=Mediterranean+Blue",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_007",
+      "name": "Camille Lefèvre",
+      "slug": "camille-lefevre",
+      "bio": "Camille Lefèvre pratique l'art textile contemporain. Ses tapisseries murales repoussent les limites du tissage traditionnel en intégrant des matériaux inattendus : fils de cuivre, fibre optique, métal recyclé.",
+      "story": "Textile designer de formation, Camille a travaillé pour de grandes maisons de mode avant de se consacrer à l'art. Son atelier à Roubaix perpétue la tradition textile du Nord tout en la réinventant radicalement.",
+      "location": "Roubaix, France",
+      "specialty": "Art textile",
+      "style_tags": ["Textile", "Tissage", "Contemporain", "Tactile"],
+      "color_palette": ["#D4A574", "#8B4513", "#D2691E", "#F4E4C1", "#2C2C2C"],
+      "image": "https://placehold.co/400x400/F4E4C1/8B4513?text=CL",
+      "artworks": [
+        {
+          "id": "art_007_01",
+          "title": "Mémoire de Laine",
+          "year": 2024,
+          "medium": "Laine, fil de cuivre, bois",
+          "dimensions": "180 x 240 cm",
+          "price": 5800,
+          "description": "Tissage monumental qui capture la lumière grâce aux fils de cuivre intégrés. L'œuvre change d'apparence selon l'heure du jour.",
+          "image": "https://placehold.co/900x675/F4E4C1/8B4513?text=M%C3%A9moire+de+Laine",
+          "status": "available"
+        },
+        {
+          "id": "art_007_02",
+          "title": "Réseaux Souterrains",
+          "year": 2023,
+          "medium": "Fibre optique, coton bio",
+          "dimensions": "150 x 150 cm",
+          "price": 7200,
+          "description": "Les fibres optiques s'illuminent dans le noir. Une carte des anciennes mines du Nord réinterprétée en tapisserie lumineuse.",
+          "image": "https://placehold.co/800x800/2C2C2C/D2691E?text=R%C3%A9seaux+Souterrains",
+          "status": "available"
+        },
+        {
+          "id": "art_007_03",
+          "title": "Patchwork Identitaire",
+          "year": 2024,
+          "medium": "Tissus recyclés, broderie",
+          "dimensions": "120 x 180 cm",
+          "price": 3400,
+          "description": "Fragments de vêtements collectés dans des friperies, assemblés en portrait abstrait. Chaque couture raconte une vie.",
+          "image": "https://placehold.co/800x1200/D4A574/D2691E?text=Patchwork+Identitaire",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_008",
+      "name": "Omar Hassan",
+      "slug": "omar-hassan",
+      "bio": "Omar Hassan crée des calligraphies abstraites qui transcendent l'écriture arabe pour devenir pur mouvement. Son geste instinctif, nourri par la tradition, produit des œuvres d'une grande vitalité.",
+      "story": "Né au Caire, Omar a étudié la calligraphie islamique classique avant de la libérer de ses contraintes. Installé à Paris depuis 2015, il expose régulièrement en Europe et au Moyen-Orient.",
+      "location": "Paris, France",
+      "specialty": "Calligraphie abstraite",
+      "style_tags": ["Calligraphie", "Abstrait", " gestuel", "Expressionniste"],
+      "color_palette": ["#1A1A1A", "#C9B037", "#8B0000", "#F5F5DC", "#4A4A4A"],
+      "image": "https://placehold.co/400x400/F5F5DC/1A1A1A?text=OH",
+      "artworks": [
+        {
+          "id": "art_008_01",
+          "title": "Alif, Ba, Ta",
+          "year": 2024,
+          "medium": "Encre de Chine et or sur papier",
+          "dimensions": "100 x 200 cm",
+          "price": 4500,
+          "description": "Les trois premières lettres de l'alphabe arabe déconstruites en gestes purs. L'or souligne les moments de pause.",
+          "image": "https://placehold.co/800x400/F5F5DC/C9B037?text=Alif%2C+Ba%2C+Ta",
+          "status": "available"
+        },
+        {
+          "id": "art_008_02",
+          "title": "Élan Vital II",
+          "year": 2023,
+          "medium": "Acrylique sur toile",
+          "dimensions": "150 x 180 cm",
+          "price": 5200,
+          "description": "Mouvement continu d'un seul trait. L'œuvre a été réalisée en une seule session de six heures sans interruption.",
+          "image": "https://placehold.co/800x960/1A1A1A/8B0000?text=%C3%89lan+Vital+II",
+          "status": "available"
+        },
+        {
+          "id": "art_008_03",
+          "title": "Meditation in Red",
+          "year": 2024,
+          "medium": "Rouge de cadmium et encre",
+          "dimensions": "120 x 120 cm",
+          "price": 3800,
+          "description": "Série Méditations. Un seul mot répété jusqu'à l'extinction du sens, devenant pure forme.",
+          "image": "https://placehold.co/800x800/8B0000/F5F5DC?text=Meditation+in+Red",
+          "status": "sold"
+        }
+      ]
+    },
+    {
+      "id": "artist_009",
+      "name": "Nina Petrova",
+      "slug": "nina-petrova",
+      "bio": "Nina Petrova capture la mélancolie post-soviétique dans des photographies teintées de nostalgie. Son travail documente une époque en disparition, entre brutalisme architectural et intimité domestique.",
+      "story": "Photographe russe installée à Berlin, Nina parcourt les anciennes républiques soviétiques pour documenter les traces de l'URSS. Son regard est à la fois documentaire et poétique.",
+      "location": "Berlin, Allemagne",
+      "specialty": "Photographie documentaire",
+      "style_tags": ["Photographie", "Documentaire", "Brutalisme", "Nostalgie"],
+      "color_palette": ["#4A4A4A", "#8B8680", "#B8B0A8", "#D4CFC7", "#E8E4E0"],
+      "image": "https://placehold.co/400x400/4A4A4A/E8E4E0?text=NP",
+      "artworks": [
+        {
+          "id": "art_009_01",
+          "title": "Piscine Moskvich",
+          "year": 2023,
+          "medium": "Tirage pigmentaire",
+          "dimensions": "80 x 120 cm",
+          "price": 2200,
+          "description": "Ancienne piscine soviétique à Minsk, aujourd'hui abandonnée. La lumière crue révèle la beauté déchue de l'architecture stalinienne.",
+          "image": "https://placehold.co/800x1200/4A4A4A/B8B0A8?text=Piscine+Moskvich",
+          "status": "available"
+        },
+        {
+          "id": "art_009_02",
+          "title": "Grand-mère's Apartment",
+          "year": 2024,
+          "medium": "Tirage argentique",
+          "dimensions": "60 x 90 cm",
+          "price": 1800,
+          "description": "Intérieur d'un appartement soviétique inchangé depuis les années 70. Le temps semble s'être arrêté.",
+          "image": "https://placehold.co/600x900/8B8680/D4CFC7?text=Grand-mother's+Apartment",
+          "status": "available"
+        },
+        {
+          "id": "art_009_03",
+          "title": "Monument Series #4",
+          "year": 2024,
+          "medium": "Tirage grand format",
+          "dimensions": "100 x 150 cm",
+          "price": 3200,
+          "description": "Monument à la gloire de l'industrie minière à Donetsk. Aujourd'hui en zone de guerre.",
+          "image": "https://placehold.co/800x1200/4A4A4A/E8E4E0?text=Monument+Series+%234",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "artist_010",
+      "name": "Jean-Paul Rousseau",
+      "slug": "jean-paul-rousseau",
+      "bio": "Jean-Paul Rousseau perpétue la grande tradition du paysage français tout en l'actualisant. Ses vues de la campagne normande capturent la lumière changeante avec une précision quasi-photographique.",
+      "story": "Élève de l'atelier de Beaux-Arts de Rouen, Jean-Paul n'a jamais quitté sa Normandie natale. Il peint en plein air, par tous les temps, fidèle à la tradition des impressionnistes qu'il réinterprète.",
+      "location": "Honfleur, France",
+      "specialty": "Paysage impressionniste",
+      "style_tags": ["Paysage", "Impressionnisme", "Nature", "Lumière"],
+      "color_palette": ["#4A6741", "#87CEEB", "#F4A460", "#8B4513", "#E6E6FA"],
+      "image": "https://placehold.co/400x400/4A6741/F4A460?text=JPR",
+      "artworks": [
+        {
+          "id": "art_010_01",
+          "title": "Soleil Couchant sur la Seine",
+          "year": 2024,
+          "medium": "Huile sur toile",
+          "dimensions": "100 x 150 cm",
+          "price": 8500,
+          "description": "Vue depuis le pont de Normandie. Monet aurait reconnu cette lumière dorée sur l'estuaire.",
+          "image": "https://placehold.co/800x1200/87CEEB/F4A460?text=Soleil+Couchant",
+          "status": "available"
+        },
+        {
+          "id": "art_010_02",
+          "title": "Brumes du Matin",
+          "year": 2023,
+          "medium": "Huile sur toile",
+          "dimensions": "80 x 120 cm",
+          "price": 5800,
+          "description": "Lever de soleil dans les marais de la Dives. La brume crée des couches de profondeur infinies.",
+          "image": "https://placehold.co/800x1200/E6E6FA/4A6741?text=Brumes+du+Matin",
+          "status": "available"
+        },
+        {
+          "id": "art_010_03",
+          "title": "La Grève en Hiver",
+          "year": 2024,
+          "medium": "Huile sur toile",
+          "dimensions": "60 x 80 cm",
+          "price": 3200,
+          "description": "Plage d'Etretat sous la neige. Les falaises blanches se confondent avec le ciel d'hiver.",
+          "image": "https://placehold.co/600x800/E6E6FA/8B4513?text=La+Gr%C3%A8ve+en+Hiver",
+          "status": "available"
+        }
+      ]
+    }
+  ]
+}
