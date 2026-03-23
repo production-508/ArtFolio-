@@ -75,6 +75,7 @@ const routes = [
   ['/api/ai', './routes/ai'],
   ['/api/chat', './routes/chat'],
   ['/api/seed', './routes/seed'],
+  ['/api/profile', './routes/profile'],
 ];
 
 routes.forEach(([routePath, mod]) => {

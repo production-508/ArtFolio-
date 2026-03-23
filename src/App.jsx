@@ -4,9 +4,11 @@ import { Suspense, lazy } from 'react';
 import { useAuth } from './contexts/AuthContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import { CartProvider } from './contexts/CartContext';
+import { ProfileCustomizationProvider } from './contexts/ProfileCustomizationContext';
 import InstitutionalNav from './components/InstitutionalNav';
 import CartDrawer from './components/CartDrawer';
 import JarvisAI from './components/JarvisAI';
+import ProfileEditor from './components/ProfileEditor';
 
 // Eager load (critique pour first paint)
 import InstitutionalHomePage from './pages/InstitutionalHomePage';
@@ -57,39 +59,42 @@ function AppContent() {
   return (
     <FavoritesProvider user={user}>
       <CartProvider>
-        <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 selection:text-white">
-          <InstitutionalNav />
-          <CartDrawer />
-          
-          <main>
-            <AnimatePresence mode="wait">
-              <Suspense fallback={<PageLoader />}>
-                <Routes location={location} key={location.pathname}>
-                  <Route path="/landing" element={<PageTransition><LandingPage /></PageTransition>} />
-                  <Route path="/" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
-                  <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
-                  <Route path="/artist/:id" element={<PageTransition><ArtistProfilePage /></PageTransition>} />
-                  <Route path="/profile" element={<PageTransition><UserProfile /></PageTransition>} />
-                  <Route path="/login" element={<PageTransition><DemoLogin /></PageTransition>} />
-                  <Route path="/recherche" element={<PageTransition><SearchResultsPage /></PageTransition>} />
-                  <Route path="/favoris" element={<PageTransition><FavoritesPage /></PageTransition>} />
-                  <Route path="/checkout" element={<PageTransition><CheckoutPage /></PageTransition>} />
-                  <Route path="/checkout/success" element={<PageTransition><CheckoutSuccessPage /></PageTransition>} />
-                  <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
-                  <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
-                  <Route path="/jarvis" element={<PageTransition><JarvisDashboardPage /></PageTransition>} />
-                  <Route path="/jarvis/artwork/:artworkId" element={<PageTransition><JarvisArtworkViewerPage /></PageTransition>} />
-                  <Route path="/visualiser/:artworkId" element={<PageTransition><RoomViewPage /></PageTransition>} />
-                  <Route path="/visualiser" element={<PageTransition><RoomViewPage /></PageTransition>} />
-                  
-                  <Route path="*" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
-                </Routes>
-              </Suspense>
-            </AnimatePresence>
-          </main>
+        <ProfileCustomizationProvider>
+          <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 selection:text-white">
+            <InstitutionalNav />
+            <CartDrawer />
+            
+            <main>
+              <AnimatePresence mode="wait">
+                <Suspense fallback={<PageLoader />}>
+                  <Routes location={location} key={location.pathname}>
+                    <Route path="/landing" element={<PageTransition><LandingPage /></PageTransition>} />
+                    <Route path="/" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
+                    <Route path="/galerie" element={<PageTransition><HomePage /></PageTransition>} />
+                    <Route path="/artist/:id" element={<PageTransition><ArtistProfilePage /></PageTransition>} />
+                    <Route path="/profile" element={<PageTransition><UserProfile /></PageTransition>} />
+                    <Route path="/profile/edit" element={<PageTransition><ProfileEditor /></PageTransition>} />
+                    <Route path="/login" element={<PageTransition><DemoLogin /></PageTransition>} />
+                    <Route path="/recherche" element={<PageTransition><SearchResultsPage /></PageTransition>} />
+                    <Route path="/favoris" element={<PageTransition><FavoritesPage /></PageTransition>} />
+                    <Route path="/checkout" element={<PageTransition><CheckoutPage /></PageTransition>} />
+                    <Route path="/checkout/success" element={<PageTransition><CheckoutSuccessPage /></PageTransition>} />
+                    <Route path="/analyze" element={<PageTransition><AnalyzePage /></PageTransition>} />
+                    <Route path="/dashboard" element={<PageTransition><ArtistDashboard /></PageTransition>} />
+                    <Route path="/jarvis" element={<PageTransition><JarvisDashboardPage /></PageTransition>} />
+                    <Route path="/jarvis/artwork/:artworkId" element={<PageTransition><JarvisArtworkViewerPage /></PageTransition>} />
+                    <Route path="/visualiser/:artworkId" element={<PageTransition><RoomViewPage /></PageTransition>} />
+                    <Route path="/visualiser" element={<PageTransition><RoomViewPage /></PageTransition>} />
+                    
+                    <Route path="*" element={<PageTransition><InstitutionalHomePage /></PageTransition>} />
+                  </Routes>
+                </Suspense>
+              </AnimatePresence>
+            </main>
 
-          <JarvisAI />
-        </div>
+            <JarvisAI />
+          </div>
+        </ProfileCustomizationProvider>
       </CartProvider>
     </FavoritesProvider>
   );
