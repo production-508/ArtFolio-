@@ -74,6 +74,22 @@ async function initDb() {
     console.log('✅ Table artists initialisée');
   }
 
+  // Appliquer les migrations
+  const migrationsDir = path.join(__dirname, 'migrations');
+  if (fs.existsSync(migrationsDir)) {
+    const migrationFiles = fs.readdirSync(migrationsDir).sort();
+    for (const file of migrationFiles) {
+      if (file.endsWith('.sql')) {
+        const migrationPath = path.join(migrationsDir, file);
+        const migrationSql = fs.readFileSync(migrationPath, 'utf8');
+        await new Promise((resolve, reject) => {
+          db.exec(migrationSql, err => err ? reject(err) : resolve());
+        });
+        console.log(`✅ Migration appliquée: ${file}`);
+      }
+    }
+  }
+
   // Vérifier si déjà seedé
   const row = await get(db, 'SELECT COUNT(*) as count FROM users');
   if (row.count > 0) {
