@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -119,18 +119,16 @@ export function InstitutionalGallery({ artworks = MOCK_ARTWORKS }) {
 }
 
 function GalleryItem({ artwork, index, onClick }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Stagger delay based on index
   const delay = (index % 3) * 0.15;
 
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ 
         duration: 0.8, 
         delay,
@@ -147,9 +145,12 @@ function GalleryItem({ artwork, index, onClick }) {
           src={artwork.image}
           alt={artwork.title}
           className="w-full h-auto object-cover"
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          initial={{ opacity: 0 }}
           animate={{ 
+            opacity: imageLoaded ? 1 : 0,
             scale: isHovered ? 1.02 : 1,
-            filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
           }}
           transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
         />
