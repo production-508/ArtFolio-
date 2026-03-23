@@ -120,7 +120,6 @@ export function InstitutionalGallery({ artworks = MOCK_ARTWORKS }) {
 
 function GalleryItem({ artwork, index, onClick }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Stagger delay based on index
   const delay = (index % 3) * 0.15;
@@ -144,12 +143,9 @@ function GalleryItem({ artwork, index, onClick }) {
         <motion.img
           src={artwork.image}
           alt={artwork.title}
-          className="w-full h-auto object-cover"
+          className="w-full h-auto object-cover block"
           loading="lazy"
-          onLoad={() => setImageLoaded(true)}
-          initial={{ opacity: 0 }}
           animate={{ 
-            opacity: imageLoaded ? 1 : 0,
             scale: isHovered ? 1.02 : 1,
           }}
           transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
@@ -157,7 +153,7 @@ function GalleryItem({ artwork, index, onClick }) {
 
         {/* Overlay subtil au hover */}
         <motion.div
-          className="absolute inset-0 bg-black"
+          className="absolute inset-0 bg-black pointer-events-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 0.2 : 0 }}
           transition={{ duration: 0.4 }}
