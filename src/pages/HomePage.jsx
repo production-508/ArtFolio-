@@ -17,7 +17,8 @@ export default function HomePage() {
 
   const fetchArtworks = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      // Utiliser une URL relative en production, ou localhost en dev
+      const API_URL = import.meta.env.VITE_API_URL || '';
       const res = await fetch(`${API_URL}/api/artworks?limit=24`);
       
       if (!res.ok) throw new Error('Erreur de chargement');
