@@ -115,3 +115,4 @@ setTimeout(() => {
 }, 100);
 
 module.exports = { app, server };
+// Seed endpoint enabled
