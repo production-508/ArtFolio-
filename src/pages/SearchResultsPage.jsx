@@ -44,31 +44,34 @@ export default function SearchResultsPage() {
     ],
   };
 
-  // Simulation de résultats
+  // Récupérer les vraies œuvres depuis l'API
   useEffect(() => {
     setLoading(true);
     
-    // Simuler un délai API
-    const timer = setTimeout(() => {
-      const mockResults = Array.from({ length: 24 }, (_, i) => ({
-        id: `artwork-${i}`,
-        title: `Œuvre ${String.fromCharCode(65 + (i % 26))}${Math.floor(i / 26) + 1 || ''}`,
-        artist: ['Elena Vostrova', 'Marc Dubois', 'Yuki Tanaka', 'Sofia Andersson'][i % 4],
-        year: 2020 + (i % 5),
-        price: 500 + (i * 250) + (Math.random() * 500),
-        medium: filterOptions.mediums[i % filterOptions.mediums.length],
-        style: filterOptions.styles[i % filterOptions.styles.length],
-        dimensions: `${60 + (i * 10)} x ${80 + (i * 5)} cm`,
-        dominantColor: filterOptions.colors[i % filterOptions.colors.length].value,
-        image: `/api/placeholder/${400 + (i % 3) * 100}/${500 + (i % 4) * 100}`,
-        likes: Math.floor(Math.random() * 500),
-      }));
-      
-      setResults(mockResults);
-      setLoading(false);
-    }, 800);
-    
-    return () => clearTimeout(timer);
+    fetch('/api/artworks?limit=100')
+      .then(res => res.json())
+      .then(data => {
+        const formatted = (data.artworks || []).map(artwork => ({
+          id: artwork.id,
+          title: artwork.title,
+          artist: artwork.artist_name || 'Artiste',
+          artist_id: artwork.artist_id,
+          year: artwork.year || 2024,
+          price: artwork.price || 0,
+          medium: artwork.medium || 'Inconnu',
+          style: artwork.style || 'Contemporain',
+          dimensions: artwork.dimensions || 'N/A',
+          dominantColor: artwork.dominant_color || '#333',
+          image: artwork.image_url || '/placeholder.jpg',
+          likes: artwork.likes_count || 0,
+        }));
+        setResults(formatted);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error fetching artworks:', err);
+        setLoading(false);
+      });
   }, [initialQuery, initialVisual]);
 
   // Filtrer les résultats
