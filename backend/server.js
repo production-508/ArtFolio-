@@ -1,4 +1,5 @@
 // Serveur Express pour Railway - Version debug static files
+// Updated: 2026-03-23 - Added seed endpoint
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
