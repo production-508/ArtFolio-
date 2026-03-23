@@ -208,3 +208,4 @@ function GalleryItem({ artwork, index, onClick }) {
 }
 
 export default InstitutionalGallery;
+// Build timestamp: Tue Mar 24 03:15:09 AM CST 2026
