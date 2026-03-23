@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import InstitutionalHero from '../components/InstitutionalHero';
 import InstitutionalGallery from '../components/InstitutionalGallery';
 
@@ -6,55 +7,92 @@ import InstitutionalGallery from '../components/InstitutionalGallery';
  * Hauser & Wirth / White Cube style
  */
 export default function HomePage() {
-  const heroArtworks = [
-    {
-      id: 1,
-      title: "Éther Flottant",
-      artist: "Marie Dubois",
-      year: "2025",
-      image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1920&q=90"
-    },
-    {
-      id: 2,
-      title: "Fragments de Mémoire",
-      artist: "Jean Pierre",
-      year: "2024",
-      image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=1920&q=90"
-    },
-    {
-      id: 3,
-      title: "Nature Morte No.7",
-      artist: "Sophie Martin",
-      year: "2026",
-      image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1920&q=90"
-    },
-    {
-      id: 4,
-      title: "Chroma Field",
-      artist: "Lucas Bernard",
-      year: "2025",
-      image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=1920&q=90"
-    }
-  ];
+  const [artworks, setArtworks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const galleryArtworks = [
-    { id: 1, title: "Éther Flottant", artist: "Marie Dubois", year: "2025", image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800", height: "tall" },
-    { id: 2, title: "Fragments", artist: "Jean Pierre", year: "2024", image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800", height: "normal" },
-    { id: 3, title: "Nature Morte", artist: "Sophie Martin", year: "2026", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800", height: "normal" },
-    { id: 4, title: "Chroma Field", artist: "Lucas Bernard", year: "2025", image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800", height: "tall" },
-    { id: 5, title: "Silhouettes", artist: "Emma Petit", year: "2024", image: "https://images.unsplash.com/photo-1549887534-1541e9326642?w=800", height: "normal" },
-    { id: 6, title: "Flux", artist: "Thomas Moreau", year: "2026", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800", height: "tall" },
-    { id: 7, title: "Lumière", artist: "Claire Dubois", year: "2025", image: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800", height: "normal" },
-    { id: 8, title: "Ombre", artist: "Marc Lefebvre", year: "2024", image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800", height: "normal" },
-  ];
+  useEffect(() => {
+    fetchArtworks();
+  }, []);
+
+  const fetchArtworks = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const res = await fetch(`${API_URL}/api/artworks?limit=24`);
+      
+      if (!res.ok) throw new Error('Erreur de chargement');
+      
+      const data = await res.json();
+      
+      // Transformer les données pour InstitutionalGallery
+      const formatted = data.artworks.map(artwork => ({
+        id: artwork.id,
+        title: artwork.title,
+        artist: artwork.artist_name || 'Artiste',
+        year: artwork.year || new Date().getFullYear(),
+        medium: artwork.medium || 'Technique mixte',
+        dimensions: artwork.dimensions || '',
+        image: artwork.image_url || 'https://placehold.co/800x600/1a1a1a/666?text=Artwork',
+        aspectRatio: getAspectRatio(artwork)
+      }));
+      
+      setArtworks(formatted);
+    } catch (err) {
+      console.error('Erreur chargement œuvres:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getAspectRatio = (artwork) => {
+    // Détecte le ratio d'aspect basé sur les dimensions si disponibles
+    if (artwork.dimensions) {
+      const match = artwork.dimensions.match(/(\d+)\s*×\s*(\d+)/);
+      if (match) {
+        const width = parseInt(match[1]);
+        const height = parseInt(match[2]);
+        const ratio = width / height;
+        if (ratio > 1.2) return 'landscape';
+        if (ratio < 0.8) return 'portrait';
+      }
+    }
+    // Alternance pour la masonry
+    return artwork.id % 3 === 0 ? 'portrait' : artwork.id % 2 === 0 ? 'square' : 'landscape';
+  };
+
+  // Hero avec les 4 premières œuvres
+  const heroArtworks = artworks.slice(0, 4).map(art => ({
+    id: art.id,
+    title: art.title,
+    artist: art.artist,
+    year: String(art.year),
+    image: art.image
+  }));
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="w-8 h-8 border border-white/20 border-t-white rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+        <p>Erreur de chargement : {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Institutionnel */}
-      <InstitutionalHero artworks={heroArtworks} />
+      <InstitutionalHero artworks={heroArtworks.length > 0 ? heroArtworks : []} />
 
-      {/* Galerie */}
-      <InstitutionalGallery artworks={galleryArtworks} />
+      {/* Galerie avec vraies données */}
+      <InstitutionalGallery artworks={artworks} />
 
       {/* Footer minimal */}
       <footer className="py-16 px-8 md:px-16 bg-black border-t border-white/10">
